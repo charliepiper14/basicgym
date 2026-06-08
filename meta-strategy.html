@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BasicGym Riverside | Meta Ads Launch Strategy</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0c0c0e;
+            --bg-secondary: #141416;
+            --bg-card: #161618;
+            --bg-card-hover: #1f1f23;
+            --border: rgba(255,255,255,0.07);
+            --accent: #ff8a00;
+            --accent-2: #ff5a1f;
+            --accent-dim: rgba(255,138,0,0.14);
+            --green: #2ec26e;
+            --green-dim: rgba(46,194,110,0.14);
+            --amber: #f5c451;
+            --amber-dim: rgba(245,196,81,0.14);
+            --red: #ef4444;
+            --red-dim: rgba(239,68,68,0.14);
+            --text-primary: #ffffff;
+            --text-secondary: #a6a6b0;
+            --text-muted: #6b6b76;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .slide {
+            min-height: 100vh;
+            padding: 56px 72px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .slide-number { position: absolute; top: 28px; right: 36px; font-size: 12px; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; }
+        .slide-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 2.5px; color: var(--accent); margin-bottom: 10px; font-weight: 700; }
+
+        h1 { font-family: 'DM Sans', sans-serif; font-size: 54px; font-weight: 800; line-height: 1.08; margin-bottom: 16px; letter-spacing: -1px; }
+        h2 { font-family: 'DM Sans', sans-serif; font-size: 38px; font-weight: 700; margin-bottom: 26px; letter-spacing: -0.5px; }
+        h3 { font-size: 18px; font-weight: 600; margin-bottom: 14px; }
+        h4 { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+        p { font-size: 15px; color: var(--text-secondary); max-width: 760px; }
+        .lead { font-size: 17px; color: var(--text-secondary); max-width: 720px; margin-bottom: 28px; }
+        strong { color: var(--text-primary); font-weight: 600; }
+
+        .wordmark { font-family: 'DM Sans', sans-serif; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+        .wordmark .o { color: var(--accent); }
+
+        /* Cover */
+        .cover { justify-content: center; align-items: flex-start; text-align: left;
+            background:
+                radial-gradient(ellipse at 12% 18%, rgba(255,138,0,0.12) 0%, transparent 46%),
+                radial-gradient(ellipse at 86% 82%, rgba(255,90,31,0.08) 0%, transparent 44%); }
+        .cover .kicker { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 24px; }
+        .cover h1 { font-size: 64px; max-width: 880px; }
+        .cover .subtitle { font-size: 20px; color: var(--text-secondary); max-width: 640px; margin-top: 8px; }
+        .cover .meta { margin-top: 52px; display: flex; gap: 14px; flex-wrap: wrap; }
+        .cover .meta span { font-size: 13px; color: var(--text-secondary); padding: 10px 18px; background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border); }
+        .cover .meta span b { color: var(--accent); font-weight: 600; }
+
+        /* Grids */
+        .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 28px 0; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 28px; }
+        .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 28px; }
+        .col-60-40 { display: grid; grid-template-columns: 1.5fr 1fr; gap: 28px; margin-top: 28px; }
+
+        .metric-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; }
+        .metric-card.accent { border-top: 3px solid var(--accent); }
+        .metric-card.green { border-top: 3px solid var(--green); }
+        .metric-card.amber { border-top: 3px solid var(--amber); }
+        .metric-card.red { border-top: 3px solid var(--red); }
+        .metric-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); margin-bottom: 8px; font-weight: 600; }
+        .metric-value { font-family: 'DM Sans', sans-serif; font-size: 30px; font-weight: 700; line-height: 1.1; }
+        .metric-value.large { font-size: 40px; }
+        .metric-sub { font-size: 12px; margin-top: 8px; font-weight: 500; color: var(--text-muted); }
+        .metric-sub.up { color: var(--green); }
+        .metric-sub.warn { color: var(--amber); }
+        .metric-sub.down { color: var(--red); }
+
+        /* Tables */
+        .data-table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 13px; }
+        .data-table th { text-align: left; padding: 12px 16px; background: var(--bg-card); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+        .data-table th.tc { text-align: center; }
+        .data-table th.tr { text-align: right; }
+        .data-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text-secondary); vertical-align: top; }
+        .data-table td.tc { text-align: center; }
+        .data-table td.tr { text-align: right; }
+        .data-table tr:hover td { background: var(--bg-card-hover); }
+        .data-table .hl { color: var(--text-primary); font-weight: 600; }
+        .data-table .g { color: var(--green); font-weight: 600; }
+        .data-table .r { color: var(--red); font-weight: 600; }
+        .data-table .a { color: var(--accent); font-weight: 600; }
+        .data-table .am { color: var(--amber); font-weight: 600; }
+        .data-table tr.total-row td { background: var(--bg-card); font-weight: 700; color: var(--text-primary); }
+
+        /* Cards */
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+        .card.accent-top { border-top: 3px solid var(--accent); }
+        .card.green-top { border-top: 3px solid var(--green); }
+        .card.amber-top { border-top: 3px solid var(--amber); }
+        .card.red-top { border-top: 3px solid var(--red); }
+        .card h4 { font-size: 15px; }
+
+        /* Insight boxes */
+        .insight { background: var(--bg-card); border-left: 3px solid var(--accent); padding: 18px 22px; margin: 20px 0; border-radius: 0 10px 10px 0; }
+        .insight.green { border-left-color: var(--green); }
+        .insight.amber { border-left-color: var(--amber); }
+        .insight.red { border-left-color: var(--red); }
+        .insight h4 { color: var(--accent); margin-bottom: 8px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; }
+        .insight.green h4 { color: var(--green); }
+        .insight.amber h4 { color: var(--amber); }
+        .insight.red h4 { color: var(--red); }
+        .insight p { font-size: 14px; line-height: 1.7; }
+
+        /* Lists */
+        .check-list { list-style: none; margin: 12px 0; }
+        .check-list li { padding: 7px 0; padding-left: 26px; position: relative; color: var(--text-secondary); font-size: 14px; line-height: 1.55; }
+        .check-list li::before { content: ''; position: absolute; left: 0; top: 12px; width: 8px; height: 8px; border-radius: 2px; background: var(--accent); }
+        .check-list li.green::before { background: var(--green); }
+        .check-list li.red::before { background: var(--red); }
+        .check-list li.amber::before { background: var(--amber); }
+        .check-list li b { color: var(--text-primary); }
+
+        .num-list { list-style: none; counter-reset: step; margin: 12px 0; }
+        .num-list li { padding: 9px 0 9px 44px; position: relative; color: var(--text-secondary); font-size: 14px; line-height: 1.55; }
+        .num-list li::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 8px; width: 26px; height: 26px; border-radius: 7px; background: var(--accent-dim); color: var(--accent); font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+
+        /* Tags */
+        .tag { display: inline-block; padding: 4px 10px; background: var(--accent-dim); border-radius: 6px; font-size: 10px; font-weight: 700; color: var(--accent); margin-right: 6px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .tag.green { background: var(--green-dim); color: var(--green); }
+        .tag.amber { background: var(--amber-dim); color: var(--amber); }
+        .tag.red { background: var(--red-dim); color: var(--red); }
+
+        /* Funnel */
+        .funnel { display: flex; align-items: stretch; gap: 14px; margin: 28px 0; flex-wrap: wrap; }
+        .funnel-stage { flex: 1; min-width: 200px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+        .funnel-stage.tracked { border-color: rgba(46,194,110,0.4); }
+        .funnel-stage.gap { border-color: rgba(239,68,68,0.4); }
+        .funnel-stage .stage-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; }
+        .funnel-stage h4 { font-size: 15px; margin-bottom: 6px; }
+        .funnel-stage p { font-size: 13px; }
+        .funnel-arrow { display: flex; align-items: center; color: var(--text-muted); font-size: 22px; }
+        .pill { display: inline-block; margin-top: 12px; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .pill.ok { background: var(--green-dim); color: var(--green); }
+        .pill.bad { background: var(--red-dim); color: var(--red); }
+
+        /* Progress bars (weekly curve) */
+        .bars { margin-top: 20px; }
+        .bar-row { display: flex; align-items: center; gap: 14px; margin: 7px 0; }
+        .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); flex-shrink: 0; }
+        .bar-track { flex: 1; height: 22px; background: rgba(255,255,255,0.05); border-radius: 5px; overflow: hidden; }
+        .bar-fill { height: 100%; border-radius: 5px; background: linear-gradient(90deg, var(--accent-2), var(--accent)); display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; font-size: 11px; font-weight: 700; color: #0c0c0e; }
+        .bar-val { width: 130px; font-size: 12px; color: var(--text-muted); text-align: right; flex-shrink: 0; }
+
+        /* Timeline */
+        .timeline { position: relative; padding-left: 34px; margin: 22px 0; }
+        .timeline::before { content: ''; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--accent-2)); border-radius: 1px; }
+        .timeline-item { position: relative; margin-bottom: 22px; }
+        .timeline-item::before { content: ''; position: absolute; left: -30px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg-primary); }
+        .timeline-day { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); margin-bottom: 4px; font-weight: 700; }
+        .timeline-item p { font-size: 13.5px; }
+
+        /* Escalation */
+        .esc-row { padding: 14px 18px; border-radius: 8px; margin-bottom: 12px; font-size: 14px; }
+        .esc-row.g { background: var(--green-dim); }
+        .esc-row.am { background: var(--amber-dim); }
+        .esc-row.r { background: var(--red-dim); }
+        .esc-row b.g { color: var(--green); }
+        .esc-row b.am { color: var(--amber); }
+        .esc-row b.r { color: var(--red); }
+        .esc-row span { color: var(--text-secondary); }
+
+        .callout { background: var(--accent-dim); border: 1px solid rgba(255,138,0,0.3); border-radius: 12px; padding: 20px 24px; margin: 24px 0; }
+        .callout h4 { color: var(--accent); font-size: 13px; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+        .callout p { color: var(--text-secondary); font-size: 14.5px; line-height: 1.7; }
+
+        .label-projection { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--amber); background: var(--amber-dim); padding: 5px 12px; border-radius: 6px; margin-bottom: 16px; }
+
+        .slide-footer { margin-top: auto; padding-top: 36px; font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; }
+        .slide-footer img { height: 22px; opacity: 0.55; }
+        .slide-footer .center { color: var(--text-muted); }
+
+        @media print { .slide { page-break-after: always; min-height: auto; } }
+        @media (max-width: 1100px) {
+            .metrics-grid, .three-col { grid-template-columns: repeat(2, 1fr); }
+            .two-col, .col-60-40 { grid-template-columns: 1fr; }
+            .slide { padding: 40px 36px; }
+            h1, .cover h1 { font-size: 38px; }
+            h2 { font-size: 28px; }
+            .funnel-arrow { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 01 COVER -->
+    <section class="slide cover">
+        <div class="kicker">Heath Media &nbsp;|&nbsp; Meta Ads Strategic Plan</div>
+        <h1><span class="wordmark">Basic<span class="o">Gym</span></span> Riverside<br>Pre-Sale Launch Strategy</h1>
+        <p class="subtitle">A fresh-build Meta advertising plan to drive membership sign-ups ahead of the Nottingham Riverside opening on 22 August 2026.</p>
+        <div class="meta">
+            <span>Prepared by <b>Heath Media</b></span>
+            <span>June 2026</span>
+            <span>Opening <b>22 Aug 2026</b></span>
+            <span>Pre-sale target <b>2,000 members</b></span>
+            <span>Offer <b>&pound;5 first month</b></span>
+        </div>
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Heath Media">
+            <span class="center">Confidential strategy document</span>
+            <span>01 / 16</span>
+        </div>
+    </section>
+
+    <!-- 02 SITUATION -->
+    <section class="slide">
+        <span class="slide-number">02 / 16</span>
+        <div class="slide-tag">Where We Are</div>
+        <h2>The Situation</h2>
+        <p class="lead">BasicGym has a proven model and a strong new site. What it does not yet have is a working paid acquisition engine. We are treating this as a clean build, not a tune-up of past activity.</p>
+
+        <div class="metrics-grid">
+            <div class="metric-card accent">
+                <div class="metric-label">Long Eaton members</div>
+                <div class="metric-value">1,800</div>
+                <div class="metric-sub">Grown on word of mouth alone</div>
+            </div>
+            <div class="metric-card accent">
+                <div class="metric-label">Long Eaton Google reviews</div>
+                <div class="metric-value">5.0 &times; 101</div>
+                <div class="metric-sub up">Genuine social proof to use</div>
+            </div>
+            <div class="metric-card accent">
+                <div class="metric-label">Pre-sale sign-ups so far</div>
+                <div class="metric-value">400</div>
+                <div class="metric-sub">Ground team and organic</div>
+            </div>
+            <div class="metric-card accent">
+                <div class="metric-label">Instagram growth</div>
+                <div class="metric-value">500 to 1,600</div>
+                <div class="metric-sub up">In roughly two weeks</div>
+            </div>
+        </div>
+
+        <div class="two-col">
+            <div>
+                <h3>What is working in our favour</h3>
+                <ul class="check-list">
+                    <li class="green"><b>A validated concept.</b> Low cost, no frills, premium service. Long Eaton proves people stay and refer.</li>
+                    <li class="green"><b>A standout location.</b> Riverside Retail Park, roughly 36,500 vehicles a week, 650 free parking spaces, next to B&amp;Q, Boots, JD Sports and Next.</li>
+                    <li class="green"><b>A large catchment.</b> Around 325,000 residents within a 15 minute drive and an estimated 150,000 to 220,000 within four miles.</li>
+                    <li class="green"><b>A clean, single offer.</b> &pound;5 first month, no contract, cancel anytime. One message, no decision fatigue.</li>
+                    <li class="green"><b>A creative production line.</b> A model, a videographer and weekly scripts already in place.</li>
+                </ul>
+            </div>
+            <div>
+                <h3>What is holding it back</h3>
+                <ul class="check-list">
+                    <li class="red"><b>No reliable conversion tracking.</b> Meta cannot currently see a completed sign-up, so spend has been flying blind.</li>
+                    <li class="red"><b>Boosted posts.</b> Boosting pays for reach without the targeting, optimisation or learning that proper campaigns give.</li>
+                    <li class="red"><b>Past ads did not perform.</b> There is no trustworthy account history to build on, so we start the data fresh.</li>
+                    <li class="red"><b>A heavy, slow website.</b> Mobile performance is poor, which costs sign-ups before people reach the offer.</li>
+                    <li class="red"><b>A new audience.</b> Nottingham does not know BasicGym yet. Long Eaton grew on familiarity that does not exist here.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Heath Media">
+            <span class="center"></span>
+            <span>02 / 16</span>
+        </div>
+    </section>
+
+    <!-- 03 OBJECTIVE AND THE HONEST MATH -->
+    <section class="slide">
+        <span class="slide-number">03 / 16</span>
+        <div class="slide-tag">The Goal</div>
+        <h2>The Objective and the Honest Maths</h2>
+        <p class="lead">The target is 2,000 pre-sale members by opening day. We will be straight about what that requires and what paid ads can realistically own.</p>
+
+        <div class="metrics-grid">
+            <div class="metric-card accent"><div class="metric-label">Pre-sale target</div><div class="metric-value large">2,000</div><div class="metric-sub">By 22 August 2026</div></div>
+            <div class="metric-card green"><div class="metric-label">Already secured</div><div class="metric-value large">400</div><div class="metric-sub up">Ground team and organic</div></div>
+            <div class="metric-card amber"><div class="metric-label">Still to find</div><div class="metric-value large">1,600</div><div class="metric-sub warn">Across all channels</div></div>
+            <div class="metric-card accent"><div class="metric-label">Time to opening</div><div class="metric-value large">10 wks</div><div class="metric-sub">From a 7 day launch</div></div>
+        </div>
+
+        <div class="two-col">
+            <div>
+                <h3>How the 1,600 gets found</h3>
+                <p style="margin-bottom:12px;">Paid Meta ads will be the primary engine, because the client expects the large majority of sign-ups to come through the internet. They do not work alone.</p>
+                <ul class="check-list">
+                    <li><b>Paid Meta ads</b> as the main driver of volume and scale.</li>
+                    <li><b>Organic social</b> from the existing content line and a growing following.</li>
+                    <li><b>The ground team</b> handing out water bottles to retail park footfall.</li>
+                    <li><b>Open days and referral</b> as opening approaches.</li>
+                </ul>
+            </div>
+            <div>
+                <div class="callout">
+                    <h4>What we will and will not promise</h4>
+                    <p>We will not put a guaranteed number on paid ads before we have live data. Any account that quotes you a fixed figure on day one is guessing.</p>
+                    <p style="margin-top:10px;">Here is the commitment instead: a correct build, clean measurement, and the first 14 days spent finding the real cost per sign-up. From there we set budget and weekly targets against what the data actually shows.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Heath Media">
+            <span class="center"></span>
+            <span>03 / 16</span>
+        </div>
+    </section>
+
+    <!-- 04 THE TRACKING GAP -->
+    <section class="slide">
+        <span class="slide-number">04 / 16</span>
+        <div class="slide-tag">The Core Problem</div>
+        <h2>The Sign-Up Happens Where Meta Cannot See It</h2>
+        <p class="lead">This is the single most important thing to fix before a penny is spent. Right now the conversion is invisible to the pixel.</p>
+
+        <div class="funnel">
+            <div class="funnel-stage tracked">
+                <div class="stage-label">Step 1</div>
+                <h4>basicgym.co.uk</h4>
+                <p>The visitor lands on the site and sees the &pound;5 offer. The Meta pixel lives here.</p>
+                <span class="pill ok">Pixel can see this</span>
+            </div>
+            <div class="funnel-arrow">&rarr;</div>
+            <div class="funnel-stage gap">
+                <div class="stage-label">Step 2</div>
+                <h4>secure.ashbournemanagement.co.uk</h4>
+                <p>Clicking Join sends the visitor to the Ashbourne gym management system. The three step sign-up, including bank details, all happens on this separate domain.</p>
+                <span class="pill bad">Pixel cannot see this</span>
+            </div>
+            <div class="funnel-arrow">&rarr;</div>
+            <div class="funnel-stage gap">
+                <div class="stage-label">Step 3</div>
+                <h4>Sign-up completed</h4>
+                <p>The member is created inside Ashbourne. Today there is no return to the BasicGym site, so nothing fires.</p>
+                <span class="pill bad">Conversion lost to Meta</span>
+            </div>
+        </div>
+
+        <div class="insight red">
+            <h4>Why this matters</h4>
+            <p>A pixel only fires on the domain where its code is installed. Because the sign-up is completed on Ashbourne, a domain BasicGym does not control, Meta currently records zero completed sign-ups. With no conversion signal, the algorithm cannot optimise toward real members, reporting cannot be trusted, and budget cannot be scaled with confidence. Fixing this is step one.</p>
+        </div>
+
+        <div class="insight green">
+            <h4>Riaz's instinct is correct</h4>
+            <p>The proposal to redirect a completed sign-up back to a thank-you page on the BasicGym site is the right fix, and it is the most reliable option available without code access to Ashbourne. The next slide sets out how we make it work.</p>
+        </div>
+
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Heath Media">
+            <span class="center"></span>
+            <span>04 / 16</span>
+        </div>
+    </section>
+
+    <!-- 05 THE FIX -->
+    <section class="slide">
+        <span class="slide-number">05 / 16</span>
+        <div class="slide-tag">The Fix</div>
+        <h2>A Thank-You Page That Catches the Conversion</h2>
+        <p class="lead">We capture two signals: the click into the sign-up, and the completed sign-up returning to a page we control.</p>
+
+        <div class="funnel">
+            <div class="funnel-stage tracked">
+                <div class="stage-label">Signal 1</div>
+                <h4>Join is clicked</h4>
+                <p>Fire an InitiateCheckout event on the Join button. This gives us a high volume early signal and builds an audience of people who started but did not finish.</p>
+                <span class="pill ok">On the BasicGym site</span>
+            </div>
+            <div class="funnel-arrow">&rarr;</div>
+            <div class="funnel-stage">
+                <div class="stage-label">Ashbourne</div>
+                <h4>Member signs up</h4>
+                <p>The visitor completes the three steps inside the Ashbourne system as they do today.</p>
+            </div>
+            <div class="funnel-arrow">&rarr;</div>
+            <div class="funnel-stage tracked">
+                <div class="stage-label">Signal 2</div>
+                <h4>Redirect to /welcome</h4>
+                <p>On completion, Ashbourne sends the member to a new thank-you page on basicgym.co.uk. That page fires the Purchase event through both the pixel and the Conversions API.</p>
+                <span class="pill ok">The conversion we optimise to</span>
+            </div>
+        </div>
+
+        <div class="two-col">
+            <div>
+                <h3>What this depends on</h3>
+                <ul class="check-list">
+                    <li><b>Ashbourne must support a success redirect URL.</b> We confirm this on day one. Most management platforms allow a configurable return or completion URL.</li>
+                    <li><b>A thank-you page is built</b> at a fixed address such as basicgym.co.uk/welcome. The web company can do this inside their existing retainer.</li>
+                    <li><b>A value, and ideally a reference, is passed back.</b> If Ashbourne can append the sign-up value or a transaction ID to the redirect, tracking and de-duplication get stronger.</li>
+                    <li><b>basicgym.co.uk is verified</b> in Meta Business Manager so the conversion is trusted.</li>
+                </ul>
+            </div>
+            <div>
+                <div class="insight amber">
+                    <h4>The honest caveat</h4>
+                    <p>The thank-you page only fires if Ashbourne actually redirects on completion. A member who closes the tab on the final Ashbourne screen will not trigger it. We expect this to capture the large majority of sign-ups, not every single one.</p>
+                </div>
+                <div class="insight green">
+                    <h4>The safety net</h4>
+                    <p>Every week we reconcile Meta against the actual sign-up export from the gym system. The gym system is the source of truth for member numbers. Meta is the source of truth for what drove them. We report both.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Heath Media">
+            <span class="center"></span>
+            <span>05 / 16</span>
+        </div>
+    </section>
+
+    <!-- 06 MEASUREMENT PLAN -->
+    <section class="slide">
+        <span class="slide-number">06 / 16</span>
+        <div class="slide-tag">Measurement</div>
+        <h2>The Full Tracking Setup</h2>
+        <p class="lead">Clean signal in means clean optimisation out. This is the foundation every other decision rests on.</p>
+
+        <table class="data-table">
+            <thead>
+                <tr><th>Event</th><th>Where it fires</th><th>Purpose</th><th class="tc">Priority</th></tr>
+            </thead>
+            <tbody>
+                <tr><td class="hl">PageView</td><td>Every page on basicgym.co.uk</td><td>Base signal, already in place, to be verified</td><td class="tc"><span class="tag">Confirm</span></td></tr>
+                <tr><td class="hl">ViewContent</td><td>Homepage and offer section</td><td>Interest signal and retargeting pool</td><td class="tc"><span class="tag">Build</span></td></tr>
+                <tr><td class="hl">InitiateCheckout</td><td>Click on the Join button</td><td>High volume early optimisation event and abandoner audience</td><td class="tc"><span class="tag amber">Key</span></td></tr>
+                <tr><td class="hl">Purchase</td><td>The new /welcome thank-you page</td><td>The completed sign-up. The event we scale toward</td><td class="tc"><span class="tag green">Critical</span></td></tr>
+            </tbody>
+        </table>
+
+        <div class="three-col">
+            <div class="card accent-top">
+                <h4>Conversions API</h4>
+                <p style="font-size:13.5px;">Server side tracking runs alongside the browser pixel on the thank-you page. It recovers conversions lost to ad blockers and mobile privacy limits, which matters more than usual because this conversion fires after a cross-domain journey on mobile. We de-duplicate using a shared event ID.</p>
+            </div>
+            <div class="card accent-top">
+                <h4>Which event we optimise to</h4>
+                <p style="font-size:13.5px;">We launch optimising for the completed sign-up where early volume allows. If the new pixel is short on Purchase data in the first days, we optimise to InitiateCheckout to feed the algorithm, then switch to Purchase once volume supports it. Meta needs roughly 50 events a week to stabilise.</p>
+            </div>
+            <div class="card accent-top">
+                <h4>How we verify it</h4>
+                <p style="font-size:13.5px;">Before launch every event is checked in Events Manager Test Events and the Meta Pixel Helper browser tool, with Diagnostics monitored after. Nothing goes live on guesswork. We confirm each event fires once, with the right value, on the right action.</p>
+            </div>
+        </div>
+
+        <div class="insight">
+            <h4>One reporting note</h4>
+            <p>In January 2026 Meta retired the longer view-through attribution windows. We report on the current default windows and reconcile against the gym system weekly, so the numbers you see in Meta line up with the members you see in the building.</p>
+        </div>
+
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Heath Media">
+            <span class="center"></span>
+            <span>06 / 16</span>
+        </div>
+    </section>
+
+    <!-- 07 WEBSITE AND CONVERSION -->
+    <section class="slide">
+        <span class="slide-number">07 / 16</span>
+        <div class="slide-tag">Standing Section &nbsp;|&nbsp; Website and Conversion</div>
+        <h2>The Website Is Leaking Sign-Ups</h2>
+        <p class="lead">Almost all paid traffic arrives on mobile. A slow, heavy page loses a share of those clicks before anyone sees the Join button. This section runs in every review from here on.</p>
+
+        <div class="metrics-grid">
+            <div class="metric-card red"><div class="metric-label">Mobile performance</div><div class="metric-value large">45<span style="font-size:18px;color:var(--text-muted);">/100</span></div><div class="metric-sub down">Core Web Vitals: failed</div></div>
+            <div class="metric-card red"><div class="metric-label">Largest Contentful Paint</div><div class="metric-value large">7.3s</div><div class="metric-sub down">Good is under 2.5s</div></div>
+            <div class="metric-card red"><div class="metric-label">Layout shift (CLS)</div><div class="metric-value large">1.348</div><div class="metric-sub down">Good is under 0.1</div></div>
+            <div class="metric-card red"><div class="metric-label">Page weight</div><div class="metric-value large">9.6MB</div><div class="metric-sub down">Very heavy for mobile</div></div>
+        </div>
+
+        <div class="two-col">
+            <div>
+                <h3>Fixes, in priority order</h3>
+                <ul class="check-list">
+                    <li class="red"><b>Compress and resize images.</b> The page payload is the biggest single problem. Properly sized, modern format, lazy loaded images will cut load time sharply.</li>
+                    <li class="red"><b>Stop the layout jumping.</b> A shift score of 1.348 means the page moves around as it loads, causing mis-taps and exits. Setting fixed dimensions on images and media fixes most of this.</li>
+                    <li class="amber"><b>Trim unused code.</b> The report flags roughly 588 KB of unused JavaScript and 40 KB of unused CSS, plus render blocking requests to defer.</li>
+                    <li class="amber"><b>Set cache lifetimes</b> so repeat visitors load faster.</li>
+                </ul>
+                <p style="margin-top:8px;font-size:13px;color:var(--text-muted);">Source: Google PageSpeed Insights, mobile, 8 June 2026. We brief these to the web company and re-test after.</p>
+            </div>
+            <div>
+                <h3>The sign-up form is heavy for a &pound;5 offer</h3>
+                <p style="margin-bottom:10px;">The Ashbourne flow asks for personal details, contact details, a full address and bank details across three steps. That is a lot of friction for a five pound decision, so drop-off will be real.</p>
+                <ul class="check-list">
+                    <li><b>Set expectations before the handoff.</b> A short line such as "takes two minutes, have your bank details handy" reduces surprise exits.</li>
+                    <li><b>Keep the BasicGym page focused.</b> One offer, one clear Join, social proof from Long Eaton, a countdown to opening.</li>
+                    <li><b>Retarget the people who start but do not finish.</b> This is one of our biggest levers and is covered in audiences.</li>
+                    <li><b>Track the completion rate</b> from Join click to finished sign-up as a core funnel health metric.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Heath Media">
+            <span class="center"></span>
+            <span>07 / 16</span>
+        </div>
+    </section>
+
+    <!-- 08 CAMPAIGN ARCHITECTURE -->
+    <section class="slide">
+        <span class="slide-number">08 / 16</span>
+        <div class="slide-tag">Campaign Build</div>
+        <h2>Account Structure</h2>
+        <p class="lead">The rule that matters most in 2026 is consolidation. We keep the signal concentrated so Meta's algorithm can learn fast, rather than splitting budget across a dozen small ad sets.</p>
+
+        <div class="two-col">
+            <div>
+                <h3>How we build it</h3>
+                <ul class="check-list">
+                    <li><b>One campaign, one objective.</b> A Sales campaign optimising for the completed sign-up. Mixing objectives fragments the conversion signal.</li>
+                    <li><b>Advantage+ Sales with a broad, AI-driven audience.</b> Granular interest stacking is no longer the way to win. We give Meta room to find members.</li>
+                    <li><b>One to three ad sets during learning.</b> Each ad set is a separate learning event, so we keep them few and well fed.</li>
+                    <li><b>A hybrid approach, not blind automation.</b> We pair Meta's automation with our own creative direction, exclusions and guardrails rather than handing over the whole account cold.</li>
+                    <li><b>Existing Long Eaton members excluded</b> from prospecting so budget chases new members, not people already paying us.</li>
+                </ul>
+            </div>
+            <div>
+                <h3>The rules we hold to</h3>
+                <div class="card accent-top" style="margin-bottom:14px;">
+                    <h4>Respect the learning phase</h4>
+                    <p style="font-size:13.5px;">Meta needs roughly 50 optimisation events per week per ad set to stabilise. During learning, costs run 20 to 50 percent higher and swing around. We do not panic in week one.</p>
+                </div>
+                <div class="card accent-top" style="margin-bottom:14px;">
+                    <h4>Do not reset the algorithm</h4>
+                    <p style="font-size:13.5px;">Significant edits restart learning. We make changes deliberately, not daily, and let winning structures run.</p>
+                </div>
+                <div class="card accent-top">
+                    <h4>Scale in steps</h4>
+                    <p style="font-size:13.5px;">Budget increases of 10 to 20 percent at a time, with a few days between moves. Doubling overnight shocks delivery and spikes cost.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Heath Media">
+            <span class="center"></span>
+            <span>08 / 16</span>
+        </div>
+    </section>
+
+    <!-- 09 GEO AND AUDIENCES -->
+    <section class="slide">
+        <span class="slide-number">09 / 16</span>
+        <div class="slide-tag">Targeting</div>
+        <h2>Geography and Audiences</h2>
+        <p class="lead">A gym is a local business. People travel roughly four miles for one. Geography is our sharpest lever, layered with the data BasicGym already owns.</p>
+
+        <div class="two-col">
+            <div>
+                <h3>Where we point the ads</h3>
+                <ul class="check-list">
+                    <li><b>A radius around Riverside Retail Park,</b> covering the core four mile catchment first, then widening as we scale.</li>
+                    <li><b>The population centres that feed the site:</b> Nottingham, West Bridgford, Wilford, Clifton, Beeston, and the Long Eaton and Loughborough corridor.</li>
+                    <li><b>The daytime workforce</b> around Boots headquarters and the Queens Drive and Lenton Lane corridors, for pre-work, lunchtime and post-work usage.</li>
+                    <li><b>Broad age and minimal filters otherwise,</b> because the creative does the targeting now and the gym is genuinely for everyone.</li>
+                </ul>
+            </div>
+            <div>
+                <h3>The data BasicGym already owns</h3>
+                <ul class="check-list">
+                    <li class="green"><b>The Long Eaton member list.</b> Uploaded with consent, this seeds a lookalike of people who already chose BasicGym, and doubles as an exclusion.</li>
+                    <li class="green"><b>Social engagers.</b> The 1,600 and growing followers, plus everyone who has watched the video content, become a warm retargeting pool.</li>
+                    <li class="green"><b>Website visitors.</b> Anyone who viewed the offer but did not click Join.</li>
+                    <li class="green"><b>Abandoned sign-ups.</b> People who clicked Join but did not finish on Ashbourne. Given the heavy form, this is a large and high-intent pool. Retargeting it is one of the strongest moves available.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="insight">
+            <h4>The sequence</h4>
+            <p>Cold prospecting carries the volume and finds new members. A retargeting layer catches the warm audience, the social engagers and above all the people who started a sign-up and stalled. As that abandoner pool builds in the first two weeks, it becomes some of the cheapest membership we can win.</p>
+        </div>
+
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Heath Media">
+            <span class="center"></span>
+            <span>09 / 16</span>
+        </div>
+    </section>
+
+    <!-- 10 CREATIVE -->
+    <section class="slide">
+        <span class="slide-number">10 / 16</span>
+        <div class="slide-tag">Creative</div>
+        <h2>Creative Is the Biggest Lever</h2>
+        <p class="lead">With targeting now automated, the creative carries the result. BasicGym already has a production line and a library of angles to draw from.</p>
+
+        <div class="col-60-40">
+            <div>
+                <h3>The angles we already have scripts for</h3>
+                <p style="margin-bottom:12px;">The recorded scripts cover a strong spread of audiences. Each becomes a distinct creative concept the algorithm can match to different people:</p>
+                <div>
+                    <span class="tag">Beginners and starters</span>
+                    <span class="tag">Budget and value seekers</span>
+                    <span class="tag">Serious lifters</span>
+                    <span class="tag">Night and shift workers</span>
+                    <span class="tag">Class and community lovers</span>
+                    <span class="tag">Students</span>
+                    <span class="tag">Busy professionals</span>
+                    <span class="tag">Local to Riverside</span>
+                    <span class="tag">Mums</span>
+                </div>
+                <h3 style="margin-top:24px;">The formats we run</h3>
+                <ul class="check-list">
+                    <li><b>Vertical, mobile-first video</b> with a strong hook in the first three seconds and captions on by default.</li>
+                    <li><b>Build and behind-the-scenes footage.</b> The gym taking shape, painted in the orange and black, creates anticipation and proof it is real.</li>
+                    <li><b>Offer-led statics</b> stating the &pound;5 first month, no contract, opening 22 August.</li>
+                    <li><b>Social proof.</b> The 1,800 members and 101 five star reviews from Long Eaton answer the only question a Nottingham stranger has: is this any good.</li>
+                </ul>
+            </div>
+            <div>
+                <div class="card accent-top" style="margin-bottom:14px;">
+                    <h4>Volume and refresh</h4>
+                    <p style="font-size:13.5px;">We run 10 to 15 live creatives and add three to five fresh ones each week from the existing production line. Studies of large ad samples show only a small fraction of ads carry most of the spend, so volume is how we find the winners.</p>
+                </div>
+                <div class="card accent-top" style="margin-bottom:14px;">
+                    <h4>Urgency and scarcity</h4>
+                    <p style="font-size:13.5px;">Founding membership framing, the price rising at opening, and a countdown to 22 August give people a reason to act now rather than later.</p>
+                </div>
+                <div class="card amber-top">
+                    <h4>One brand rule we keep</h4>
+                    <p style="font-size:13.5px;">No Porsche on screen. BasicGym is a low budget brand and the message stays on value, the space and the people, exactly as Riaz has set out.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Heath Media">
+            <span class="center"></span>
+            <span>10 / 16</span>
+        </div>
+    </section>
+
+    <!-- 11 7 DAY LAUNCH -->
+    <section class="slide">
+        <span class="slide-number">11 / 16</span>
+        <div class="slide-tag">Launch</div>
+        <h2>Live Within 7 Days</h2>
+        <p class="lead">A realistic build sequence that gets clean campaigns live inside a week, assuming access and the Ashbourne redirect are confirmed early.</p>
+
+        <div class="two-col">
+            <div>
+                <div class="timeline">
+                    <div class="timeline-item"><div class="timeline-day">Day 1</div><p>Confirm ad account and asset access. Audit the existing pixel with the Pixel Helper. Verify the domain in Business Manager. Raise the Ashbourne redirect question. Pause the wasteful post boosting.</p></div>
+                    <div class="timeline-item"><div class="timeline-day">Day 2</div><p>Brief the web company on the /welcome thank-you page and the Join-click and Purchase events. Specify the Conversions API. Request a value or reference parameter from Ashbourne.</p></div>
+                    <div class="timeline-item"><div class="timeline-day">Day 3</div><p>Quality-check every event in Test Events and Pixel Helper. Upload the Long Eaton list. Build the custom, lookalike and retargeting audiences.</p></div>
+                    <div class="timeline-item"><div class="timeline-day">Day 4</div><p>Build the campaign. Assemble the first 8 to 12 creatives from the existing library across the core angles. Write the primary copy.</p></div>
+                </div>
+            </div>
+            <div>
+                <div class="timeline">
+                    <div class="timeline-item"><div class="timeline-day">Day 5</div><p>Internal quality pass on tracking, creative, targeting and budget caps. Send the budget plan and first creatives to Riaz for sign-off.</p></div>
+                    <div class="timeline-item"><div class="timeline-day">Day 6</div><p>Apply any final changes. Set up the Slack channel, the weekly reconciliation sheet and the standing weekly strategy call.</p></div>
+                    <div class="timeline-item"><div class="timeline-day">Day 7</div><p>Launch. Begin daily monitoring through the learning phase.</p></div>
+                </div>
+                <div class="insight">
+                    <h4>Quick wins running in parallel</h4>
+                    <p>Stop boosting posts immediately and move that money into proper campaigns. Brief the worst website speed issues to the web company. Point the organic content and ground team at the same offer and deadline.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Heath Media">
+            <span class="center"></span>
+            <span>11 / 16</span>
+        </div>
+    </section>
+
+    <!-- 12 BUDGET AND SCALING -->
+    <section class="slide">
+        <span class="slide-number">12 / 16</span>
+        <div class="slide-tag">Budget</div>
+        <h2>Budget and Scaling Model</h2>
+        <span class="label-projection">Recommended plan. Final spend stays under your approval and scales only while cost per sign-up holds.</span>
+
+        <table class="data-table">
+            <thead>
+                <tr><th>Phase</th><th>Weeks</th><th class="tr">Daily budget</th><th class="tr">Phase spend</th><th>Focus</th></tr>
+            </thead>
+            <tbody>
+                <tr><td class="hl">1. Learning</td><td>1 to 2</td><td class="tr">&pound;100</td><td class="tr a">&pound;1,400</td><td>Establish the real cost per sign-up. Find early creative winners.</td></tr>
+                <tr><td class="hl">2. Scale</td><td>3 to 6</td><td class="tr">&pound;150</td><td class="tr a">&pound;4,200</td><td>Put budget behind what works. Build retargeting pools.</td></tr>
+                <tr><td class="hl">3. Final push</td><td>7 to 10</td><td class="tr">&pound;200</td><td class="tr a">&pound;5,600</td><td>Maximise with deadline and scarcity messaging into opening.</td></tr>
+                <tr class="total-row"><td class="hl">Total to opening</td><td>10 weeks</td><td class="tr"></td><td class="tr">&pound;11,200</td><td>Roughly &pound;4,800 a month on average, inside your stated range.</td></tr>
+            </tbody>
+        </table>
+
+        <div class="two-col">
+            <div>
+                <h3>How we decide when to scale</h3>
+                <div class="esc-row g"><b class="g">Green.</b> <span>Cost per sign-up at or below target and frequency healthy. Increase budget 10 to 20 percent.</span></div>
+                <div class="esc-row am"><b class="am">Amber.</b> <span>Cost drifting up or frequency climbing. Hold budget, refresh creative.</span></div>
+                <div class="esc-row r"><b class="r">Red.</b> <span>Cost well above target, or frequency high with falling click-through. Pause, restructure, new creative.</span></div>
+            </div>
+            <div>
+                <div class="insight amber">
+                    <h4>Why budget is not the constraint</h4>
+                    <p>Riaz has been clear that results matter more than spend. This plan is a sensible starting shape. If the cost per sign-up proves strong in the first two weeks, we have every reason to spend faster, and the budget can rise well beyond this within the stated appetite. The escalation rules keep that disciplined.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Heath Media">
+            <span class="center"></span>
+            <span>12 / 16</span>
+        </div>
+    </section>
+
+    <!-- 13 KPI ROADMAP -->
+    <section class="slide">
+        <span class="slide-number">13 / 16</span>
+        <div class="slide-tag">The Roadmap</div>
+        <h2>Realistic Path to 22 August</h2>
+        <span class="label-projection">Illustrative base case. Projection, not a guarantee. Recalibrated weekly against live cost per sign-up.</span>
+
+        <div class="col-60-40">
+            <div>
+                <h4 style="margin-bottom:6px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.6px;font-size:11px;">Weekly sign-ups, all channels combined, base case</h4>
+                <div class="bars">
+                    <div class="bar-row"><div class="bar-label">Week 1 (learning)</div><div class="bar-track"><div class="bar-fill" style="width:19%;">50</div></div><div class="bar-val">cum. 450</div></div>
+                    <div class="bar-row"><div class="bar-label">Week 2</div><div class="bar-track"><div class="bar-fill" style="width:30%;">80</div></div><div class="bar-val">cum. 530</div></div>
+                    <div class="bar-row"><div class="bar-label">Week 3</div><div class="bar-track"><div class="bar-fill" style="width:42%;">110</div></div><div class="bar-val">cum. 640</div></div>
+                    <div class="bar-row"><div class="bar-label">Week 4</div><div class="bar-track"><div class="bar-fill" style="width:53%;">140</div></div><div class="bar-val">cum. 780</div></div>
+                    <div class="bar-row"><div class="bar-label">Week 5</div><div class="bar-track"><div class="bar-fill" style="width:60%;">160</div></div><div class="bar-val">cum. 940</div></div>
+                    <div class="bar-row"><div class="bar-label">Week 6</div><div class="bar-track"><div class="bar-fill" style="width:66%;">175</div></div><div class="bar-val">cum. 1,115</div></div>
+                    <div class="bar-row"><div class="bar-label">Week 7</div><div class="bar-track"><div class="bar-fill" style="width:70%;">185</div></div><div class="bar-val">cum. 1,300</div></div>
+                    <div class="bar-row"><div class="bar-label">Week 8</div><div class="bar-track"><div class="bar-fill" style="width:77%;">205</div></div><div class="bar-val">cum. 1,505</div></div>
+                    <div class="bar-row"><div class="bar-label">Week 9</div><div class="bar-track"><div class="bar-fill" style="width:87%;">230</div></div><div class="bar-val">cum. 1,735</div></div>
+                    <div class="bar-row"><div class="bar-label">Week 10 (run-in)</div><div class="bar-track"><div class="bar-fill" style="width:100%;">265</div></div><div class="bar-val">cum. 2,000</div></div>
+                </div>
+                <p style="font-size:12.5px;color:var(--text-muted);margin-top:10px;">Starts from the 400 already secured. The final week lifts on opening-deadline urgency and the price rising at opening. Paid ads are the main driver, with organic, ground team and referral assisting.</p>
+            </div>
+            <div>
+                <h3>Sensitivity on paid ads</h3>
+                <p style="font-size:13px;margin-bottom:8px;">Cost per sign-up is unknown until live. These bands show how the maths moves, on roughly &pound;11,200 of spend, before accounting for natural cost rises as we saturate a local audience.</p>
+                <table class="data-table" style="margin-top:8px;">
+                    <tr><td class="hl">Conservative</td><td class="tr">&pound;8.00</td><td class="tr a">1,400</td></tr>
+                    <tr><td class="hl">Base</td><td class="tr">&pound;5.50</td><td class="tr a">2,000</td></tr>
+                    <tr><td class="hl">Stretch</td><td class="tr">&pound;3.50</td><td class="tr a">3,200</td></tr>
+                </table>
+                <div class="insight amber" style="margin-top:14px;">
+                    <h4>The realistic read</h4>
+                    <p>In a finite local audience, cost per sign-up tends to rise as we scale, so the stretch figure is unlikely to hold across the whole budget. The realistic planning band is the conservative to base range. That, with the existing 400 and continued organic and ground activity, puts 2,000 within reach. It is a target we are confident in, not a promise we can bank on day one.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Heath Media">
+            <span class="center"></span>
+            <span>13 / 16</span>
+        </div>
+    </section>
+
+    <!-- 14 KPIS REPORTING -->
+    <section class="slide">
+        <span class="slide-number">14 / 16</span>
+        <div class="slide-tag">What We Report</div>
+        <h2>The Numbers That Matter</h2>
+        <p class="lead">Riaz wants one weekly view built on real members, not vanity metrics. That is how we report.</p>
+
+        <div class="two-col">
+            <div>
+                <h3>Primary, the ones we are judged on</h3>
+                <ul class="check-list">
+                    <li class="green"><b>Completed &pound;5 sign-ups,</b> reconciled against the gym system. The north star.</li>
+                    <li class="green"><b>Cost per sign-up.</b> What each member costs us to acquire.</li>
+                    <li class="green"><b>Weekly run-rate against target.</b> Are we on pace for opening day.</li>
+                </ul>
+                <h3 style="margin-top:20px;">Secondary, the ones that explain why</h3>
+                <ul class="check-list">
+                    <li><b>Join clicks and completion rate.</b> How many start versus finish, the clearest read on funnel friction.</li>
+                    <li><b>Click-through rate and cost per click.</b> Creative and audience health.</li>
+                    <li><b>Frequency.</b> A tight geo fatigues fast, so we watch this closely.</li>
+                    <li><b>Cost per sign-up by creative.</b> Where the money should move next.</li>
+                </ul>
+            </div>
+            <div>
+                <div class="card accent-top" style="margin-bottom:14px;">
+                    <h4>The weekly rhythm</h4>
+                    <p style="font-size:13.5px;">A Slack channel for day-to-day questions and a single standing weekly strategy call. Every call answers the same three questions: how many members did we get, why, and what do we change to do better next week.</p>
+                </div>
+                <div class="card accent-top" style="margin-bottom:14px;">
+                    <h4>The reconciliation</h4>
+                    <p style="font-size:13.5px;">Each week we line up Meta's reported sign-ups against the actual gym system export. The gym system is the truth on member count. Meta tells us what drove them. No gap goes unexplained.</p>
+                </div>
+                <div class="card accent-top">
+                    <h4>No surprises on spend</h4>
+                    <p style="font-size:13.5px;">We always agree the budget with you before we spend it, and we flag any change as results come in.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Heath Media">
+            <span class="center"></span>
+            <span>14 / 16</span>
+        </div>
+    </section>
+
+    <!-- 15 RISKS -->
+    <section class="slide">
+        <span class="slide-number">15 / 16</span>
+        <div class="slide-tag">Risk Management</div>
+        <h2>Risks and How We Handle Them</h2>
+
+        <table class="data-table">
+            <thead>
+                <tr><th>Risk</th><th class="tc">Likelihood</th><th class="tc">Impact</th><th>How we manage it</th></tr>
+            </thead>
+            <tbody>
+                <tr><td class="hl">Ashbourne does not support a redirect, so the thank-you page cannot fire</td><td class="tc"><span class="tag am">Medium</span></td><td class="tc"><span class="tag red">High</span></td><td>Confirm on day one. If not possible, optimise to the Join click and rely on weekly gym-system reconciliation while we find an alternative.</td></tr>
+                <tr><td class="hl">High drop-off on the multi-step sign-up form</td><td class="tc"><span class="tag am">Medium</span></td><td class="tc"><span class="tag am">Med-High</span></td><td>Set expectations before the handoff, keep the page focused, and retarget abandoners hard. Track the completion rate weekly.</td></tr>
+                <tr><td class="hl">New pixel, low early conversion volume slows learning</td><td class="tc"><span class="tag am">Medium</span></td><td class="tc"><span class="tag am">Medium</span></td><td>Optimise to the higher volume Join click early, keep the audience broad, run the Conversions API, and consolidate budget.</td></tr>
+                <tr><td class="hl">Website speed costs mobile sign-ups</td><td class="tc"><span class="tag am">Medium</span></td><td class="tc"><span class="tag am">Med-High</span></td><td>Brief the priority fixes from the PageSpeed report and re-test. This runs as a standing section in every review.</td></tr>
+                <tr><td class="hl">Creative fatigue in a tight local audience</td><td class="tc"><span class="tag am">Medium</span></td><td class="tc"><span class="tag am">Medium</span></td><td>Run 10 to 15 creatives, refresh three to five weekly from the existing production line, and rotate across the many angles.</td></tr>
+                <tr><td class="hl">Cost per sign-up rises as we saturate the area</td><td class="tc"><span class="tag am">Medium</span></td><td class="tc"><span class="tag am">Medium</span></td><td>Phase the scaling, widen the radius and age range as needed, bring fresh angles, and lean on urgency in the run-in.</td></tr>
+                <tr><td class="hl">Meta's attributed number differs from actual members</td><td class="tc"><span class="tag green">Low-Med</span></td><td class="tc"><span class="tag green">Low-Med</span></td><td>Weekly reconciliation against the gym system, which remains the source of truth on member count.</td></tr>
+            </tbody>
+        </table>
+
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Heath Media">
+            <span class="center"></span>
+            <span>15 / 16</span>
+        </div>
+    </section>
+
+    <!-- 16 SUMMARY -->
+    <section class="slide">
+        <span class="slide-number">16 / 16</span>
+        <div class="slide-tag">Summary</div>
+        <h2>The First 7 Days, and What We Need</h2>
+
+        <div class="three-col">
+            <div class="card accent-top">
+                <h3 style="color:var(--accent);">We do this</h3>
+                <ul class="check-list" style="font-size:13px;">
+                    <li>Audit and verify the pixel and domain</li>
+                    <li>Build the Join-click and Purchase events plus the Conversions API</li>
+                    <li>Build the consolidated Advantage+ Sales campaign</li>
+                    <li>Upload data and build the audiences</li>
+                    <li>Assemble the first creative batch and launch</li>
+                </ul>
+            </div>
+            <div class="card accent-top">
+                <h3 style="color:var(--accent);">We need from you</h3>
+                <ul class="check-list" style="font-size:13px;">
+                    <li>Ad account and asset access confirmed</li>
+                    <li>Ashbourne checked for a success redirect URL</li>
+                    <li>The web company to build the /welcome page and place the events</li>
+                    <li>The Long Eaton member list, with consent</li>
+                    <li>Continued weekly filming and the build footage</li>
+                </ul>
+            </div>
+            <div class="card accent-top">
+                <h3 style="color:var(--accent);">How we measure success</h3>
+                <ul class="check-list" style="font-size:13px;">
+                    <li>Completed sign-ups, reconciled weekly</li>
+                    <li>A cost per sign-up we can scale on</li>
+                    <li>On pace for 2,000 by 22 August</li>
+                    <li>A funnel that converts mobile traffic</li>
+                    <li>One clear weekly view of the numbers</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="callout" style="margin-top:32px;">
+            <h4>Our commitment</h4>
+            <p>BasicGym already has the hard part right: a product people stay for and a location built to win. Our job is to put a clean, well-measured acquisition engine behind it and to tell you the truth every week about what the numbers say. We will not promise a figure we cannot stand behind. What you get is a proper build, a real cost per sign-up inside the first two weeks, and steady pressure on the target through to opening day.</p>
+        </div>
+
+        <div class="slide-footer">
+            <img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1754585626/lead-guru-new-logo-W-450_oyvumx.webp" alt="Heath Media">
+            <span class="center"><span class="wordmark">Basic<span class="o">Gym</span></span> Riverside | Meta Ads Launch Strategy</span>
+            <span>Prepared June 2026</span>
+        </div>
+    </section>
+
+</body>
+</html>
