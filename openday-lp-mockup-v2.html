@@ -30,17 +30,20 @@
   }
 
   *{box-sizing:border-box;}
+  html,body{max-width:100%;overflow-x:hidden;}
   html{scroll-behavior:smooth;}
   body{
     margin:0;
+    width:100%;
     font-family:var(--font);
     color:var(--ink);
     background:var(--paper);
     line-height:1.5;
     -webkit-font-smoothing:antialiased;
   }
-  h1,h2,h3{margin:0;line-height:1.02;letter-spacing:-.02em;text-transform:uppercase;font-weight:900;}
-  p{margin:0;}
+  img{max-width:100%;}
+  h1,h2,h3{margin:0;line-height:1.02;letter-spacing:-.02em;text-transform:uppercase;font-weight:900;overflow-wrap:break-word;}
+  p{margin:0;overflow-wrap:break-word;}
   a{color:inherit;}
   .wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 20px;}
 
