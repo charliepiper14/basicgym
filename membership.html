@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BasicGym Riverside Nottingham — £5 First Month</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.pexels.com">
+<link rel="preconnect" href="https://res.cloudinary.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#FFFFFF;
+    --cream:#F5F4F0;
+    --ink:#0E0E0E;
+    --orange:#E2640D;
+    --orange-deep:#C85808;
+    --muted:#565659;          /* body grey on light */
+    --muted-dark:#A9A9AE;     /* grey on black */
+    --line:#E7E5E0;           /* borders on light */
+    --line-dark:#262629;      /* borders on black */
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--white);color:var(--ink);font-family:'Inter',system-ui,-apple-system,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+  .display{font-family:'Archivo',sans-serif;font-weight:900;letter-spacing:-0.015em;text-transform:uppercase;line-height:0.95}
+  .orange{color:var(--orange)}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  svg{display:block}
+
+  /* sections */
+  .sec{padding:74px 0}
+  .sec--cream{background:var(--cream)}
+  .sec--ink{background:var(--ink);color:var(--white)}
+  .kicker{font-size:12.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--orange)}
+  .h2{font-size:clamp(28px,5vw,48px);margin-top:12px}
+  .lead{color:var(--muted);font-size:17px;margin-top:14px;max-width:620px}
+  .sec--ink .lead{color:var(--muted-dark)}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:800;font-size:15px;padding:15px 26px;border-radius:8px;text-transform:uppercase;letter-spacing:0.02em;transition:transform .12s ease, background .15s ease, border-color .15s ease}
+  .btn-primary{background:var(--orange);color:#fff}
+  .btn-primary:hover{background:var(--orange-deep);transform:translateY(-1px)}
+  .btn-dark{background:var(--ink);color:#fff}
+  .btn-dark:hover{transform:translateY(-1px);background:#000}
+  .btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.4)}
+  .btn-ghost:hover{border-color:#fff}
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}
+
+  /* HEADER */
+  header{position:sticky;top:0;z-index:40;background:var(--ink);border-bottom:1px solid var(--line-dark)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .logo{display:flex;align-items:center}
+  .logo img{height:34px;width:auto;display:block}
+  .nav-links{display:flex;gap:26px;font-size:14px;font-weight:500;color:var(--muted-dark)}
+  .nav-links a:hover{color:#fff}
+  .nav-cta{background:var(--orange);color:#fff;font-weight:800;font-size:13px;padding:11px 18px;border-radius:6px;text-transform:uppercase;letter-spacing:0.03em}
+  .nav-cta:hover{background:var(--orange-deep)}
+  @media(max-width:860px){.nav-links{display:none}}
+
+  /* HERO (dark photo, matches homepage) */
+  .hero{position:relative;color:#fff;overflow:hidden;background:var(--ink)}
+  .hero-bg{position:absolute;inset:0;z-index:0}
+  .hero-bg img{width:100%;height:100%;object-fit:cover}
+  .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,7,8,0.92) 0%,rgba(7,7,8,0.78) 42%,rgba(7,7,8,0.45) 100%)}
+  .hero-inner{position:relative;z-index:1;padding:88px 0 58px;max-width:680px}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange)}
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--orange)}
+  .hero h1{font-size:clamp(42px,8vw,86px);margin:18px 0 0}
+  .hero h1 .sub{display:block;font-family:'Inter',sans-serif;font-weight:600;text-transform:none;letter-spacing:-0.01em;font-size:clamp(18px,2.6vw,25px);line-height:1.25;margin-top:18px;color:#EDEDED;max-width:560px}
+  .fineprint{font-size:13.5px;color:#BFBFC2;margin-top:18px}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#fff;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);border-radius:30px;padding:8px 14px}
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--orange)}
+  .pill .stars{color:var(--orange);letter-spacing:1px}
+
+  /* ORANGE STAT BAR */
+  .statbar{background:var(--orange);color:var(--ink)}
+  .statbar .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+  .sb{padding:22px 18px;display:flex;align-items:baseline;gap:10px;justify-content:center;border-right:1px solid rgba(0,0,0,0.16)}
+  .sb:last-child{border-right:0}
+  .sb .n{font-family:'Archivo',sans-serif;font-weight:900;font-size:26px;line-height:1}
+  .sb .l{font-size:11.5px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase}
+  @media(max-width:760px){.statbar .wrap{grid-template-columns:1fr 1fr}.sb:nth-child(2){border-right:0}.sb:nth-child(1),.sb:nth-child(2){border-bottom:1px solid rgba(0,0,0,0.16)}}
+
+  /* icons */
+  .ic svg{width:20px;height:20px;stroke:var(--orange);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .ci svg{width:26px;height:26px;stroke:var(--orange);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .tick svg{width:14px;height:14px;stroke:var(--orange);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+
+  /* WHY (local) */
+  .local-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:42px;align-items:center;margin-top:8px}
+  @media(max-width:880px){.local-grid{grid-template-columns:1fr;gap:30px}}
+  .local-points{margin-top:26px;display:flex;flex-direction:column;gap:18px}
+  .lp{display:flex;gap:14px;align-items:flex-start}
+  .lp .ic{flex:0 0 auto;width:42px;height:42px;border-radius:10px;background:rgba(226,100,13,0.1);border:1px solid rgba(226,100,13,0.28);display:flex;align-items:center;justify-content:center}
+  .lp h4{font-size:16px;font-weight:700}
+  .lp p{font-size:14.5px;color:var(--muted);margin-top:3px}
+  .brands{display:flex;flex-wrap:wrap;gap:6px;margin-top:22px}
+  .brands span{font-size:12px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:6px 10px;white-space:nowrap}
+  /* catchment as black card */
+  .catch-card{background:var(--ink);color:#fff;border-radius:18px;padding:30px}
+  .catch-card .big{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(40px,8vw,62px);color:var(--orange);line-height:0.9}
+  .catch-card .big-l{font-size:15px;font-weight:600;margin-top:10px}
+  .catch-sub{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .catch-sub div{background:rgba(255,255,255,0.04);border:1px solid var(--line-dark);border-radius:11px;padding:14px}
+  .catch-sub .cn{font-family:'Archivo',sans-serif;font-weight:800;font-size:20px}
+  .catch-sub .cl{font-size:12px;color:var(--muted-dark);margin-top:3px}
+
+  /* CARDS (what you get) */
+  .get-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+  @media(max-width:860px){.get-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.get-grid{grid-template-columns:1fr}}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px;transition:transform .15s ease, box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:0 14px 34px -22px rgba(0,0,0,0.35)}
+  .card .ci{width:48px;height:48px;border-radius:11px;background:rgba(226,100,13,0.1);border:1px solid rgba(226,100,13,0.26);display:flex;align-items:center;justify-content:center}
+  .card h4{font-size:17px;font-weight:700;margin-top:16px}
+  .card p{font-size:14.5px;color:var(--muted);margin-top:7px}
+
+  /* INSIDE zones */
+  .gym-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+  @media(max-width:860px){.gym-grid{grid-template-columns:1fr}}
+  .gtile{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);aspect-ratio:4/5}
+  .gtile img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+  .gtile:hover img{transform:scale(1.04)}
+  .gtile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 38%,rgba(7,7,8,0.85) 100%)}
+  .gtile .cap{position:absolute;left:18px;bottom:16px;z-index:2;color:#fff}
+  .gtile .cap .z{font-family:'Archivo',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:0.04em;font-size:18px}
+  .gtile .cap .d{font-size:13px;color:#D6D6D8;margin-top:2px}
+
+  /* FOUNDING £5 (black + orange card) */
+  .found-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:40px;align-items:center;margin-top:8px}
+  @media(max-width:880px){.found-grid{grid-template-columns:1fr;gap:28px}}
+  .found-copy b{color:#fff}
+  .price-card{background:var(--orange);color:#fff;border-radius:18px;padding:34px 30px;text-align:center}
+  .price-card .e{font-size:11.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;opacity:0.9}
+  .price-card .amt{font-family:'Archivo',sans-serif;font-weight:900;font-size:72px;line-height:0.95;margin-top:10px}
+  .price-card .amt small{font-size:22px;font-weight:800}
+  .price-card .then{font-size:13.5px;margin-top:8px;opacity:0.95}
+  .price-card .btn{width:100%;margin-top:22px}
+  .price-card .note{font-size:12px;margin-top:14px;opacity:0.9}
+
+  /* REVIEWS */
+  .rev-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:34px;align-items:center;margin-top:8px}
+  @media(max-width:880px){.rev-grid{grid-template-columns:1fr;gap:24px}}
+  .rev-stats{display:flex;gap:30px;margin-top:22px}
+  .rev-stats .n{font-family:'Archivo',sans-serif;font-weight:900;font-size:32px;color:var(--orange);line-height:1}
+  .rev-stats .l{font-size:12.5px;color:var(--muted);margin-top:4px}
+  .rev-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:30px;box-shadow:0 18px 40px -28px rgba(0,0,0,0.4)}
+  .rev-card .stars{color:var(--orange);font-size:20px;letter-spacing:2px}
+  .rev-card .score{font-family:'Archivo',sans-serif;font-weight:900;font-size:46px;margin-top:10px}
+  .rev-card .score span{color:var(--orange)}
+  .rev-card p{font-size:14.5px;color:var(--muted);margin-top:12px}
+
+  /* LOCATION */
+  .loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;margin-top:8px}
+  @media(max-width:880px){.loc-grid{grid-template-columns:1fr}}
+  .map{background:var(--cream);border:1px solid var(--line);border-radius:16px;overflow:hidden;min-height:320px}
+  .map iframe{width:100%;height:100%;min-height:320px;border:0}
+  .routes{margin-top:18px;display:flex;flex-direction:column;gap:12px}
+  .route{display:flex;gap:12px;align-items:center;font-size:15px}
+  .route .tag{font-family:'Archivo',sans-serif;font-weight:800;font-size:13px;color:var(--orange);border:1px solid rgba(226,100,13,0.4);border-radius:7px;padding:4px 9px;min-width:54px;text-align:center}
+
+  /* FAQ */
+  .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:34px}
+  @media(max-width:760px){.faq-grid{grid-template-columns:1fr}}
+  .faq-card{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:22px}
+  .faq-card h4{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:0.02em}
+  .faq-card p{font-size:14px;color:var(--muted);margin-top:8px}
+
+  /* FINAL ORANGE BAND */
+  .final{background:var(--orange);color:var(--ink);text-align:center;padding:80px 0}
+  .final h2{font-size:clamp(32px,6.5vw,60px);margin-bottom:14px}
+  .final p{font-size:17px;margin-bottom:28px;max-width:560px;margin-left:auto;margin-right:auto}
+  .final .micro{font-size:13px;margin-top:18px;opacity:0.85}
+
+  footer{background:var(--ink);color:var(--muted-dark);padding:34px 0;font-size:13px}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px}
+  footer a{color:var(--muted-dark)}footer a:hover{color:#fff}
+
+  /* STICKY MOBILE CTA */
+  .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--ink);border-top:1px solid var(--line-dark);padding:11px 16px;display:none;align-items:center;justify-content:space-between;gap:12px}
+  .sticky-cta .p{font-size:13px;font-weight:700;line-height:1.2;color:#fff}
+  .sticky-cta .p b{color:var(--orange)}
+  .sticky-cta .p small{display:block;color:var(--muted-dark);font-weight:500;font-size:11px}
+  .sticky-cta a{background:var(--orange);color:#fff;font-weight:800;font-size:14px;padding:13px 18px;border-radius:8px;text-transform:uppercase;white-space:nowrap}
+  @media(max-width:860px){.sticky-cta{display:flex}body{padding-bottom:70px}}
+
+  .reveal{animation:bg-rise .6s ease both}
+  @keyframes bg-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){.reveal{animation:none}.btn:hover,.gtile:hover img{transform:none}}
+</style>
+</head>
+<body>
+
+<!-- =====================================================================
+     BASICGYM RIVERSIDE — NOTTINGHAM LANDING (basicgym.fit/nottingham/)
+     Re-themed to match the live homepage: white/cream/black + orange #E2640D,
+     orange stat bar under hero, orange closing band. Single Elementor HTML widget.
+     Every £5 CTA -> Ashbourne. Open-day CTA -> /open-day/.
+     IMAGES: Pexels placeholders (hero 29392546, space 29224211,
+     weights 4162451, cardio 8933584) -> swap for real Riverside/Long Eaton.
+     REVIEW quote is a placeholder -> swap for a live Google review.
+     ===================================================================== -->
+
+<header>
+  <div class="wrap nav">
+    <a href="/" class="logo"><img src="https://res.cloudinary.com/dcnabm5nc/image/upload/v1781771715/logo-basicgym.png_1_m8bklv.webp" alt="BasicGym" width="97" height="22"></a>
+    <nav class="nav-links">
+      <a href="#why">Why Riverside</a>
+      <a href="#whatyouget">What you get</a>
+      <a href="#inside">Inside</a>
+      <a href="#founding">£5 offer</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#location">Find us</a>
+    </nav>
+    <a href="https://secure.ashbournemanagement.co.uk/signupUK/index.aspx?fn=GREN2" class="nav-cta">Get £5 month</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"><img src="https://res.cloudinary.com/dcnabm5nc/image/upload/f_auto,q_auto,w_1600/v1782298061/basicgymhero_iwhmp4.png" alt="BasicGym interior" fetchpriority="high"></div>
+  <div class="wrap">
+    <div class="hero-inner">
+      <span class="eyebrow"><span class="dot"></span>Nottingham Riverside &middot; Opening 22 August</span>
+      <h1 class="display">£5 <span class="orange">first&nbsp;month</span>
+        <span class="sub">A premium gym at Nottingham Riverside. Big, clean, open 24/7, with people who actually say hello. No contract.</span>
+      </h1>
+      <div class="cta-row">
+        <a href="https://secure.ashbournemanagement.co.uk/signupUK/index.aspx?fn=GREN2" class="btn btn-primary">Get your £5 founding month &rarr;</a>
+        <a href="/open-day/" class="btn btn-ghost">Reserve a free open day</a>
+      </div>
+      <p class="fineprint">£5 first month, then £27.99 a month. No contract, cancel anytime. Founding price ends at opening.</p>
+      <div class="pills">
+        <span class="pill"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 5.0 from 101 reviews</span>
+        <span class="pill"><span class="dot"></span> Open 24/7</span>
+        <span class="pill"><span class="dot"></span> 650 free parking</span>
+        <span class="pill"><span class="dot"></span> No contract</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORANGE STAT BAR -->
+<div class="statbar">
+  <div class="wrap">
+    <div class="sb"><span class="n">5.0</span><span class="l">Google rating</span></div>
+    <div class="sb"><span class="n">101</span><span class="l">Five-star reviews</span></div>
+    <div class="sb"><span class="n">1,800</span><span class="l">Members at gym one</span></div>
+    <div class="sb"><span class="n">£5</span><span class="l">Founding first month</span></div>
+  </div>
+</div>
+
+<!-- WHY RIVERSIDE (white) -->
+<section class="sec" id="why">
+  <div class="wrap">
+    <div class="local-grid">
+      <div class="reveal">
+        <div class="kicker">Right on your doorstep</div>
+        <h2 class="h2 display">Built for Nottingham Riverside</h2>
+        <p class="lead">We&rsquo;re opening at Riverside Retail Park, next to B&amp;Q, Boots, JD Sports, Next and The Food Warehouse. If you live, work or shop near the A52, you&rsquo;re minutes away.</p>
+        <div class="local-points">
+          <div class="lp"><div class="ic"><svg viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg></div><div><h4>650 free parking spaces</h4><p>No city-centre parking charges and no circling for a space. Park, train, leave.</p></div></div>
+          <div class="lp"><div class="ic"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div><div><h4>Straight off the ring road</h4><p>Direct access from the A52, A453 and Clifton Boulevard. Easy from Nottingham, West Bridgford, Beeston, Clifton and Long Eaton.</p></div></div>
+          <div class="lp"><div class="ic"><svg viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/></svg></div><div><h4>Minutes from Boots HQ</h4><p>Perfect for a pre-work, lunchtime or post-work session if you&rsquo;re based around Queens Drive or Lenton Lane.</p></div></div>
+        </div>
+        <div class="brands">
+          <span>B&amp;Q</span><span>Boots</span><span>JD Sports</span><span>Next</span><span>Food Warehouse</span><span>Poundland</span>
+        </div>
+      </div>
+      <div class="catch-card reveal">
+        <div class="big">325,000+</div>
+        <div class="big-l">residents within a 15-minute drive of Riverside</div>
+        <div class="catch-sub">
+          <div><div class="cn">36,500</div><div class="cl">cars through the park every week</div></div>
+          <div><div class="cn">10,000 sq ft</div><div class="cl">of open-plan training space</div></div>
+          <div><div class="cn">68%</div><div class="cl">of locals are working age (18&ndash;64)</div></div>
+          <div><div class="cn">5 zones</div><div class="cl">strength, cardio, functional &amp; more</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET (cream) -->
+<section class="sec sec--cream" id="whatyouget">
+  <div class="wrap">
+    <div class="kicker">£5 now, £100 experience</div>
+    <h2 class="h2 display">What&rsquo;s included</h2>
+    <p class="lead">No-nonsense pricing, none of the no-nonsense feeling. You get premium kit and proper service, without the premium price tag.</p>
+    <div class="get-grid">
+      <div class="card reveal"><div class="ci"><svg viewBox="0 0 24 24"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></svg></div><h4>Premium equipment</h4><p>Full strength, cardio, free-weight, functional and cable zones. Kit reset and maintained daily.</p></div>
+      <div class="card reveal"><div class="ci"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h4>Free classes</h4><p>Proper instructors leading proper classes, included in your membership at no extra cost.</p></div>
+      <div class="card reveal"><div class="ci"><svg viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg></div><h4>Showers &amp; changing rooms</h4><p>Clean, modern changing rooms kept to the same standard our Long Eaton members rate 5.0.</p></div>
+      <div class="card reveal"><div class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h4>Open 24/7</h4><p>Finish at 2am or start at 5am? The gym fits your day, not the other way round.</p></div>
+      <div class="card reveal"><div class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg></div><h4>Actual hello service</h4><p>Staff who know your name and trainers who help you for free. That&rsquo;s the bit other gyms miss.</p></div>
+      <div class="card reveal"><div class="ci"><svg viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg></div><h4>650 free spaces</h4><p>Free on-site parking the moment you arrive. No app, no ticket, no charge.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSIDE zones (white) -->
+<section class="sec" id="inside">
+  <div class="wrap">
+    <div class="kicker">What&rsquo;s inside</div>
+    <h2 class="h2 display">Every zone, one membership</h2>
+    <p class="lead">A big, open-plan floor with everything you need and nothing you don&rsquo;t. Here&rsquo;s the kind of setup waiting for you at Riverside.</p>
+    <div class="gym-grid">
+      <div class="gtile reveal"><img loading="lazy" src="https://res.cloudinary.com/dcnabm5nc/image/upload/c_fill,g_auto,ar_4:5,w_600,f_auto,q_auto/v1782298061/basicgymhero_iwhmp4.png" alt="Open-plan gym floor"><div class="cap"><div class="z">The floor</div><div class="d">Open-plan, 10,000 sq ft</div></div></div>
+      <div class="gtile reveal"><img loading="lazy" src="https://res.cloudinary.com/dcnabm5nc/image/upload/c_fill,g_auto,ar_4:5,w_600,f_auto,q_auto/v1782309600/basicgym-membership-freeweights_ibdxru.png" alt="Free weights"><div class="cap"><div class="z">Free weights</div><div class="d">Full dumbbell range, no queues</div></div></div>
+      <div class="gtile reveal"><img loading="lazy" src="https://res.cloudinary.com/dcnabm5nc/image/upload/c_fill,g_auto,ar_4:5,w_600,f_auto,q_auto/v1782309719/basic-gym-membership-cardiozone_jwnme1.png" alt="Cardio machines"><div class="cap"><div class="z">Cardio zone</div><div class="d">Rows of machines, always free</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDING £5 (black + orange card) -->
+<section class="sec sec--ink" id="founding">
+  <div class="wrap">
+    <div class="found-grid">
+      <div class="found-copy reveal">
+        <div class="kicker">Founding offer</div>
+        <h2 class="h2 display">Get in before<br>we open for £5</h2>
+        <p class="lead">We open at Riverside Retail Park, Nottingham on 22 August. Join now as a founding member and your first month is £5, then £27.99 a month with no contract. When the doors open, the £5 rate is gone.</p>
+        <p style="margin-top:16px;font-weight:700"><b>Cancel anytime. No joining fee. No catch.</b></p>
+      </div>
+      <div class="price-card reveal">
+        <div class="e">Founding member &middot; first month</div>
+        <div class="amt">£5<small>/mo</small></div>
+        <div class="then">then £27.99 a month, no contract</div>
+        <a href="https://secure.ashbournemanagement.co.uk/signupUK/index.aspx?fn=GREN2" class="btn btn-dark">Claim your £5 month</a>
+        <div class="note">Off-peak £17.99/mo also available from 22 August</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS (cream) -->
+<section class="sec sec--cream" id="reviews">
+  <div class="wrap">
+    <div class="rev-grid">
+      <div class="reveal">
+        <div class="kicker">Proven next door</div>
+        <h2 class="h2 display">Our first gym is rated 5.0</h2>
+        <p class="lead">BasicGym Long Eaton opened in 2024 and grew to a full house on word of mouth alone, with 101 five-star Google reviews and around 1,800 members. Riverside is the same model in a bigger, better location.</p>
+        <div class="rev-stats">
+          <div><div class="n">5.0</div><div class="l">Google rating</div></div>
+          <div><div class="n">101</div><div class="l">Five-star reviews</div></div>
+          <div><div class="n">1,800</div><div class="l">Members at gym one</div></div>
+        </div>
+      </div>
+      <!-- TODO: swap quote for a live Google review before launch -->
+      <div class="rev-card reveal">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="score">5.0<span>/5</span></div>
+        <p>Members keep saying the same things: spotless, friendly, and genuinely good value. That&rsquo;s the gym you&rsquo;re getting in early on.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION (white) -->
+<section class="sec" id="location">
+  <div class="wrap">
+    <div class="kicker">Where to find us</div>
+    <h2 class="h2 display">Riverside Retail Park, Nottingham</h2>
+    <div class="loc-grid">
+      <div class="reveal">
+        <p class="lead">You&rsquo;ll find us alongside the big-name stores at Riverside, with free on-site parking right at the door.</p>
+        <div class="routes">
+          <div class="route"><span class="tag">A52</span> Straight off Clifton Boulevard and the ring road</div>
+          <div class="route"><span class="tag">A453</span> Quick from Clifton, Wilford and the south of the city</div>
+          <div class="route"><span class="tag">15 min</span> From West Bridgford, Beeston, Long Eaton and Loughborough</div>
+          <div class="route"><span class="tag">P</span> 650 free parking spaces, no charge</div>
+        </div>
+        <div class="cta-row">
+          <a href="https://secure.ashbournemanagement.co.uk/signupUK/index.aspx?fn=GREN2" class="btn btn-primary">Get your £5 month &rarr;</a>
+        </div>
+      </div>
+      <div class="map reveal">
+        <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Riverside%20Retail%20Park%20Nottingham&t=&z=13&ie=UTF8&iwloc=&output=embed" title="Riverside Retail Park, Nottingham"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ (cream) -->
+<section class="sec sec--cream" id="faq">
+  <div class="wrap">
+    <div class="kicker">Before you join</div>
+    <h2 class="h2 display">Quick answers</h2>
+    <div class="faq-grid">
+      <div class="faq-card"><h4>What&rsquo;s the £5 deal?</h4><p>£5 for your first month as a founding member, then £27.99 a month with no contract. Cancel anytime. The £5 rate ends when we open on 22 August.</p></div>
+      <div class="faq-card"><h4>Is there a contract?</h4><p>No. Membership is rolling monthly and you can cancel anytime. No joining fee, no tie-in.</p></div>
+      <div class="faq-card"><h4>When does Nottingham open?</h4><p>22 August at Riverside Retail Park. Join now to lock in the founding price before the doors open.</p></div>
+      <div class="faq-card"><h4>What&rsquo;s included?</h4><p>Every zone, free classes, 24/7 access and 650 free parking spaces. One simple membership, no upsells.</p></div>
+      <div class="faq-card"><h4>Is parking free?</h4><p>Completely free. Riverside Retail Park has 650 free spaces, so no app, no ticket and no charge to park.</p></div>
+      <div class="faq-card"><h4>How do I know it&rsquo;s any good?</h4><p>Our Long Eaton gym holds a 5.0 rating from 101 Google reviews and around 1,800 members. Riverside is the same model, bigger.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL ORANGE BAND -->
+<section class="final" id="join">
+  <div class="wrap">
+    <h2 class="display">£5 now, or £27.99<br>after we open</h2>
+    <p>Founding memberships are limited and the price goes up on opening day. Lock yours in while it&rsquo;s still £5.</p>
+    <div class="cta-row" style="justify-content:center">
+      <a href="https://secure.ashbournemanagement.co.uk/signupUK/index.aspx?fn=GREN2" class="btn btn-dark">Get your £5 founding month &rarr;</a>
+    </div>
+    <div class="micro">Opening 22 August &middot; Riverside Retail Park, Nottingham &middot; Open 24/7</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><strong style="color:#fff">BasicGym Riverside</strong> &middot; Riverside Retail Park, Nottingham &middot; Opens 22 August 2026</div>
+    <div>Open 24/7 &middot; 650 free parking &middot; <a href="/open-day/">Open days</a> &middot; <a href="/membership/">Membership</a></div>
+  </div>
+</footer>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta">
+  <div class="p"><b>£5</b> first month<small>No contract &middot; opening 22 Aug</small></div>
+  <a href="https://secure.ashbournemanagement.co.uk/signupUK/index.aspx?fn=GREN2">Get £5 month</a>
+</div>
+
+</body>
+</html>
