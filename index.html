@@ -199,7 +199,7 @@
         <tbody id="ladder"></tbody>
       </table>
     </div>
-    <div class="note">The ladder is back-weighted on purpose. Presale accelerates into opening as urgency builds, the open days land, ground team presence grows and spend steps up. Week one at ~9 a day is roughly where the account sits now; the climb after that is what the spend plan pays for.</div>
+    <div class="note">The ladder is back-weighted on purpose. Presale accelerates into opening as urgency builds, the open days land, ground team presence grows and spend steps up. Week one at about 8 a day is close to where the account sits now; the climb after that is what the spend plan pays for.</div>
   </div>
 
   <!-- COST + SETTINGS -->
@@ -226,7 +226,7 @@
         <p class="desc">Baseline members already signed up as of 9 Jul (Ashbourne is source of truth). Adjust if the real figure differs.</p>
         <div class="inp-inline" style="margin-bottom:14px">
           <label style="font-size:12px;color:var(--muted);min-width:150px">Baseline on 9 Jul</label>
-          <input type="number" id="set-base" min="0" step="1" value="72">
+          <input type="number" id="set-base" min="0" step="1" value="101">
         </div>
         <div class="kv"><span class="k">Total gap to close</span><span class="val" id="s-gap">-</span></div>
         <div class="kv"><span class="k">Flat average needed</span><span class="val" id="s-flat">-</span></div>
@@ -264,13 +264,13 @@
   const TARGET=2000, OPENING="2026-08-22", START="2026-07-09";
   // Back-weighted weekly ladder. Weekly targets sum to 1928 (2000 - 72 baseline).
   const WEEKS=[
-    {n:1,start:"2026-07-09",end:"2026-07-15",target:60},
-    {n:2,start:"2026-07-16",end:"2026-07-22",target:140},
-    {n:3,start:"2026-07-23",end:"2026-07-29",target:230},
-    {n:4,start:"2026-07-30",end:"2026-08-05",target:320},
-    {n:5,start:"2026-08-06",end:"2026-08-12",target:400},
-    {n:6,start:"2026-08-13",end:"2026-08-19",target:500},
-    {n:7,start:"2026-08-20",end:"2026-08-22",target:278}
+    {n:1,start:"2026-07-09",end:"2026-07-15",target:59},
+    {n:2,start:"2026-07-16",end:"2026-07-22",target:138},
+    {n:3,start:"2026-07-23",end:"2026-07-29",target:227},
+    {n:4,start:"2026-07-30",end:"2026-08-05",target:315},
+    {n:5,start:"2026-08-06",end:"2026-08-12",target:394},
+    {n:6,start:"2026-08-13",end:"2026-08-19",target:492},
+    {n:7,start:"2026-08-20",end:"2026-08-22",target:274}
   ];
   const KEY="bg_riverside_pacing_v1";
   const nf=new Intl.NumberFormat("en-GB");
@@ -286,24 +286,26 @@
 
   // build smooth daily expected-cumulative map from the ladder
   function buildExpected(base){
-    const map={}; let cum=base;
-    WEEKS.forEach(w=>{
-      const n=days(w.start,w.end)+1, per=w.target/n;
-      for(let i=0;i<n;i++){ const day=iso(new Date(d(w.start).getTime()+i*86400000)); cum+=per; map[day]=cum; }
-    });
-    return map;
+    // knots: baseline at start, each week-end at its cumulative target; lands exactly on TARGET at opening
+    const knots=[{date:START,val:base}]; let cum=base;
+    WEEKS.forEach(w=>{ cum+=w.target; knots.push({date:w.end,val:cum}); });
+    return knots;
   }
-  function expectedAsOf(s,base,map){
-    s=clampDay(s);
-    if(days(START,s)<=0) return base;
-    // walk back to nearest day present
-    let cur=s;
-    for(let i=0;i<60;i++){ if(map[cur]!=null) return map[cur]; cur=iso(new Date(d(cur).getTime()-86400000)); if(cur<START) break; }
+  function expectedAsOf(s,base,knots){
+    if(s<=START) return base;
+    if(s>=OPENING) return TARGET;
+    for(let i=0;i<knots.length-1;i++){
+      const a=knots[i], b=knots[i+1];
+      if(s>=a.date && s<=b.date){
+        const span=days(a.date,b.date); if(span<=0) return b.val;
+        return a.val + (b.val-a.val)*(days(a.date,s)/span);
+      }
+    }
     return base;
   }
 
   // ---- state ----
-  let state={ base:72, cpp:18, paid:70, totals:{ "2026-07-09":72 } };
+  let state={ base:101, cpp:18, paid:70, totals:{ "2026-07-09":101 } };
   let mem=false; // in-memory fallback flag
 
   function load(){
@@ -344,7 +346,7 @@
     pel.textContent=(pace>=0?"+":"")+nf.format(pace);
     pel.className="big "+(pace>=0?"ok":(pace>-40?"watch":"bad"));
     ptag.className="tag "+(pace>=0?"ok":(pace>-40?"watch":"bad"));
-    ptagt.textContent = pace>=0? "ahead of plan" : (pace>-40? "just behind" : "behind plan");
+    ptagt.textContent = pace>0? "ahead of plan" : (pace===0? "on plan" : (pace>-40? "just behind" : "behind plan"));
     document.getElementById("h-pace-tag").style.display = "inline-flex";
     document.getElementById("h-rate").textContent=nf.format(Math.ceil(rate));
     document.getElementById("h-days").textContent=daysLeft;
@@ -436,9 +438,9 @@
     bind2("set-cpp","cpp",parseFloat);
     bind2("set-paid","paid",parseFloat);
     document.getElementById("set-base").oninput=e=>{ const v=parseInt(e.target.value,10); if(!isNaN(v)){ state.base=v; state.totals["2026-07-09"]=v; save(); render(); } };
-    document.getElementById("btn-reset").onclick=()=>{ if(confirm("Reset all logged totals and settings?")){ state={base:72,cpp:18,paid:70,totals:{"2026-07-09":72}}; save(); syncInputs(); render(); } };
+    document.getElementById("btn-reset").onclick=()=>{ if(confirm("Reset all logged totals and settings?")){ state={base:101,cpp:18,paid:70,totals:{"2026-07-09":101}}; save(); syncInputs(); render(); } };
     document.getElementById("btn-copy").onclick=()=>{ const t=document.getElementById("io"); t.select(); try{document.execCommand("copy");}catch(e){} };
-    document.getElementById("btn-import").onclick=()=>{ try{ const o=JSON.parse(document.getElementById("io").value); state=Object.assign({base:72,cpp:18,paid:70,totals:{}},o); save(); syncInputs(); render(); }catch(e){ alert("That is not valid data."); } };
+    document.getElementById("btn-import").onclick=()=>{ try{ const o=JSON.parse(document.getElementById("io").value); state=Object.assign({base:101,cpp:18,paid:70,totals:{}},o); save(); syncInputs(); render(); }catch(e){ alert("That is not valid data."); } };
   }
   function syncInputs(){
     document.getElementById("set-cpp").value=state.cpp;
