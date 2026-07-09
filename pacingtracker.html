@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BasicGym Riverside — Presale Pacing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0E0E0F; --surface:#17171A; --surface2:#1E1E22; --line:#2A2A30;
+    --text:#F3F2EF; --muted:#9A9AA4; --dim:#6E6E76;
+    --orange:#FF5A1F; --orange-soft:rgba(255,90,31,.14);
+    --green:#37C26A; --green-soft:rgba(55,194,106,.14);
+    --red:#FF4D4D; --red-soft:rgba(255,77,77,.14);
+    --amber:#FFB020; --amber-soft:rgba(255,176,32,.14);
+    --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:'Hanken Grotesk',system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.4}
+  .wrap{max-width:1080px;margin:0 auto;padding:28px 22px 64px}
+  a{color:inherit}
+
+  /* header */
+  .top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .mark{width:30px;height:30px;border-radius:7px;background:var(--orange);position:relative;flex:none}
+  .mark::after{content:"";position:absolute;inset:9px 7px;border-left:3px solid #0E0E0F;border-bottom:3px solid #0E0E0F}
+  h1{font-size:19px;font-weight:800;letter-spacing:-.01em;margin:0}
+  .sub{color:var(--muted);font-size:13px;margin-top:3px}
+  .sub b{color:var(--text);font-weight:600}
+  .updated{font-family:var(--mono);font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
+
+  /* hero stats */
+  .hero{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 16px 15px;position:relative;overflow:hidden}
+  .stat .lab{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:600}
+  .stat .big{font-family:var(--mono);font-size:34px;font-weight:600;letter-spacing:-.02em;margin-top:8px;line-height:1}
+  .stat .foot{font-size:12px;color:var(--muted);margin-top:9px}
+  .stat.accent{border-color:rgba(255,90,31,.4)}
+  .stat.accent .big{color:var(--orange)}
+  .stat .tag{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;font-weight:600;padding:3px 8px;border-radius:20px;margin-top:9px}
+  .tag.ok{background:var(--green-soft);color:var(--green)} .big.ok{color:var(--green)}
+  .tag.bad{background:var(--red-soft);color:var(--red)} .big.bad{color:var(--red)}
+  .tag.watch{background:var(--amber-soft);color:var(--amber)} .big.watch{color:var(--amber)}
+  .dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+
+  /* pace bar */
+  .paceband{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 18px 16px;margin-top:12px}
+  .pb-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .pb-title{font-size:13px;font-weight:700}
+  .pb-legend{display:flex;gap:16px;font-size:11.5px;color:var(--muted);font-family:var(--mono)}
+  .pb-legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:middle}
+  .track{position:relative;height:26px;background:var(--surface2);border-radius:7px;margin-top:14px;overflow:hidden;border:1px solid var(--line)}
+  .fill-actual{position:absolute;inset:0 auto 0 0;background:var(--orange);border-radius:6px 0 0 6px;transition:width .5s ease}
+  .marker{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--text)}
+  .marker span{position:absolute;top:-17px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10px;color:var(--muted);white-space:nowrap}
+  .pb-scale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:8px}
+
+  /* section */
+  .sec{margin-top:30px}
+  .sec-h{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+  .sec-h h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700;margin:0}
+  .sec-h .rule{flex:1;height:1px;background:var(--line)}
+
+  /* log input */
+  .logrow{display:flex;gap:10px;flex-wrap:wrap;align-items:end;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field label{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600}
+  input[type=date],input[type=number]{font-family:var(--mono);background:var(--surface2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:9px 11px;font-size:14px;outline:none;width:150px}
+  input:focus{border-color:var(--orange)}
+  .hint{font-size:12px;color:var(--dim);margin-left:2px;align-self:center}
+  button{font-family:var(--sans);font-weight:700;font-size:13.5px;border:none;border-radius:8px;padding:10px 16px;cursor:pointer;transition:.15s}
+  .btn-primary{background:var(--orange);color:#0E0E0F}
+  .btn-primary:hover{filter:brightness(1.08)}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line);padding:7px 12px;font-weight:600;font-size:12.5px}
+  .btn-ghost:hover{color:var(--text);border-color:var(--dim)}
+
+  /* tables */
+  .tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+  .tbl th{text-align:right;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;padding:9px 12px;border-bottom:1px solid var(--line)}
+  .tbl th:first-child,.tbl td:first-child{text-align:left}
+  .tbl td{padding:11px 12px;border-bottom:1px solid var(--line);font-family:var(--mono);text-align:right;color:var(--text)}
+  .tbl td.wk{font-family:var(--sans);color:var(--muted);font-weight:600}
+  .tbl tr.now{background:var(--orange-soft)}
+  .tbl tr.now td.wk{color:var(--orange)}
+  .tbl tr.done td{color:var(--dim)}
+  .tbl tr:hover:not(.now){background:var(--surface2)}
+  .v-pos{color:var(--green)} .v-neg{color:var(--red)}
+  .del{background:none;border:none;color:var(--dim);cursor:pointer;font-family:var(--mono);font-size:12px;padding:2px 6px;border-radius:5px}
+  .del:hover{color:var(--red);background:var(--red-soft)}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+
+  /* settings + cost grid */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 17px}
+  .panel h3{margin:0 0 4px;font-size:13px;font-weight:700}
+  .panel p.desc{margin:0 0 14px;font-size:12px;color:var(--muted)}
+  .kv{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px}
+  .kv:first-of-type{border-top:none}
+  .kv .k{color:var(--muted)} .kv .val{font-family:var(--mono);font-weight:600}
+  .kv .val.big{color:var(--orange);font-size:16px}
+  .inp-inline{display:flex;align-items:center;gap:7px}
+  .inp-inline input{width:92px;padding:6px 9px;font-size:13px}
+  .inp-inline .u{color:var(--dim);font-family:var(--mono);font-size:12px}
+
+  .note{font-size:12px;color:var(--dim);margin-top:14px;line-height:1.55}
+  .footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+  details.data{margin-top:10px}
+  details.data summary{cursor:pointer;color:var(--dim);font-size:12px;font-family:var(--mono)}
+  details.data textarea{width:100%;height:96px;margin-top:8px;background:var(--surface2);border:1px solid var(--line);color:var(--muted);border-radius:8px;font-family:var(--mono);font-size:11px;padding:9px}
+
+  @media(max-width:820px){.hero{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}
+  @media(max-width:560px){.hero{grid-template-columns:1fr 1fr}.stat .big{font-size:28px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="brand">
+      <div class="mark"></div>
+      <div>
+        <h1>Riverside Presale Pacing</h1>
+        <div class="sub">Target <b>2,000 members</b> by <b>22 Aug 2026</b> &nbsp;·&nbsp; opening day</div>
+      </div>
+    </div>
+    <div class="updated" id="stamp">—</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="stat">
+      <div class="lab">Members now</div>
+      <div class="big" id="h-now">—</div>
+      <div class="foot" id="h-now-foot">of 2,000</div>
+    </div>
+    <div class="stat" id="h-pace-card">
+      <div class="lab">Pace vs plan</div>
+      <div class="big" id="h-pace">—</div>
+      <div class="tag" id="h-pace-tag"><span class="dot"></span><span id="h-pace-tag-t">—</span></div>
+    </div>
+    <div class="stat accent">
+      <div class="lab">Run-rate needed</div>
+      <div class="big" id="h-rate">—</div>
+      <div class="foot" id="h-rate-foot">per day to still hit 2,000</div>
+    </div>
+    <div class="stat">
+      <div class="lab">Days to opening</div>
+      <div class="big" id="h-days">—</div>
+      <div class="foot" id="h-days-foot">to 22 Aug</div>
+    </div>
+  </div>
+
+  <!-- PACE BAR -->
+  <div class="paceband">
+    <div class="pb-head">
+      <div class="pb-title">Where we are against the plan today</div>
+      <div class="pb-legend">
+        <span><i style="background:var(--orange)"></i>Actual</span>
+        <span><i style="background:var(--text)"></i>Plan to date</span>
+      </div>
+    </div>
+    <div class="track">
+      <div class="fill-actual" id="bar-actual" style="width:0%"></div>
+      <div class="marker" id="bar-plan" style="left:0%"><span id="bar-plan-lab">plan</span></div>
+    </div>
+    <div class="pb-scale"><span>0</span><span>1,000</span><span>2,000</span></div>
+  </div>
+
+  <!-- LOG -->
+  <div class="sec">
+    <div class="sec-h"><h2>Log today's total</h2><div class="rule"></div></div>
+    <div class="logrow">
+      <div class="field">
+        <label for="in-date">Date</label>
+        <input type="date" id="in-date">
+      </div>
+      <div class="field">
+        <label for="in-total">Total members (Ashbourne)</label>
+        <input type="number" id="in-total" min="0" step="1" placeholder="e.g. 132">
+      </div>
+      <button class="btn-primary" id="btn-log">Save total</button>
+      <span class="hint">Read the count from Ashbourne each morning and drop it in. The tracker works out the daily add and pace for you.</span>
+    </div>
+  </div>
+
+  <!-- WEEKLY LADDER -->
+  <div class="sec">
+    <div class="sec-h"><h2>Weekly ladder to 22 Aug</h2><div class="rule"></div></div>
+    <div class="card">
+      <table class="tbl">
+        <thead><tr>
+          <th>Week</th><th>Dates</th><th>Target</th><th>Cum. target</th><th>Added</th><th>Members</th><th>Variance</th><th>Need / day</th>
+        </tr></thead>
+        <tbody id="ladder"></tbody>
+      </table>
+    </div>
+    <div class="note">The ladder is back-weighted on purpose. Presale accelerates into opening as urgency builds, the open days land, ground team presence grows and spend steps up. Week one at ~9 a day is roughly where the account sits now; the climb after that is what the spend plan pays for.</div>
+  </div>
+
+  <!-- COST + SETTINGS -->
+  <div class="sec">
+    <div class="sec-h"><h2>Spend to target &amp; settings</h2><div class="rule"></div></div>
+    <div class="grid2">
+      <div class="panel">
+        <h3>Implied spend to finish</h3>
+        <p class="desc">A rough read on the paid budget behind the remaining members, at your assumed cost per sign-up.</p>
+        <div class="inp-inline" style="margin-bottom:10px">
+          <label style="font-size:12px;color:var(--muted);min-width:150px">Cost per paid sign-up</label>
+          <span class="u">£</span><input type="number" id="set-cpp" min="1" step="0.5" value="18">
+        </div>
+        <div class="inp-inline" style="margin-bottom:14px">
+          <label style="font-size:12px;color:var(--muted);min-width:150px">Share from paid ads</label>
+          <input type="number" id="set-paid" min="0" max="100" step="5" value="70"><span class="u">%</span>
+        </div>
+        <div class="kv"><span class="k">Members still to get</span><span class="val" id="c-remaining">—</span></div>
+        <div class="kv"><span class="k">Of those, from paid</span><span class="val" id="c-paidmembers">—</span></div>
+        <div class="kv"><span class="k">Implied ad spend left</span><span class="val big" id="c-spend">—</span></div>
+      </div>
+      <div class="panel">
+        <h3>Starting point</h3>
+        <p class="desc">Baseline members already signed up as of 9 Jul (Ashbourne is source of truth). Adjust if the real figure differs.</p>
+        <div class="inp-inline" style="margin-bottom:14px">
+          <label style="font-size:12px;color:var(--muted);min-width:150px">Baseline on 9 Jul</label>
+          <input type="number" id="set-base" min="0" step="1" value="72">
+        </div>
+        <div class="kv"><span class="k">Total gap to close</span><span class="val" id="s-gap">—</span></div>
+        <div class="kv"><span class="k">Flat average needed</span><span class="val" id="s-flat">—</span></div>
+        <div class="kv"><span class="k">Logged so far</span><span class="val" id="s-logged">0 entries</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOG HISTORY -->
+  <div class="sec">
+    <div class="sec-h"><h2>Logged totals</h2><div class="rule"></div></div>
+    <div class="card">
+      <table class="tbl">
+        <thead><tr><th>Date</th><th>Total members</th><th>Added that day</th><th>vs plan that day</th><th></th></tr></thead>
+        <tbody id="history"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="note" style="margin:0">Data saves automatically in this browser. It is a planning view, not a billing record.</span>
+    <button class="btn-ghost" id="btn-reset">Reset all data</button>
+  </div>
+  <details class="data">
+    <summary>Export / import data</summary>
+    <textarea id="io" spellcheck="false"></textarea>
+    <div style="margin-top:8px;display:flex;gap:8px"><button class="btn-ghost" id="btn-copy">Copy</button><button class="btn-ghost" id="btn-import">Import from box</button></div>
+  </details>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const TARGET=2000, OPENING="2026-08-22", START="2026-07-09";
+  // Back-weighted weekly ladder. Weekly targets sum to 1928 (2000 - 72 baseline).
+  const WEEKS=[
+    {n:1,start:"2026-07-09",end:"2026-07-15",target:60},
+    {n:2,start:"2026-07-16",end:"2026-07-22",target:140},
+    {n:3,start:"2026-07-23",end:"2026-07-29",target:230},
+    {n:4,start:"2026-07-30",end:"2026-08-05",target:320},
+    {n:5,start:"2026-08-06",end:"2026-08-12",target:400},
+    {n:6,start:"2026-08-13",end:"2026-08-19",target:500},
+    {n:7,start:"2026-08-20",end:"2026-08-22",target:278}
+  ];
+  const KEY="bg_riverside_pacing_v1";
+  const nf=new Intl.NumberFormat("en-GB");
+  const gbp=n=>"£"+new Intl.NumberFormat("en-GB",{maximumFractionDigits:0}).format(Math.max(0,Math.round(n)));
+
+  // ---- date helpers (TZ-safe) ----
+  const d=s=>new Date(s+"T00:00:00");
+  const iso=dt=>{const y=dt.getFullYear(),m=String(dt.getMonth()+1).padStart(2,"0"),da=String(dt.getDate()).padStart(2,"0");return `${y}-${m}-${da}`;};
+  const days=(a,b)=>Math.round((d(b)-d(a))/86400000);
+  const todayISO=()=>iso(new Date());
+  const clampDay=s=>{ if(s<START)return START; if(s>OPENING)return OPENING; return s; };
+  const fmtDate=s=>{const x=d(s);return x.toLocaleDateString("en-GB",{day:"numeric",month:"short"});};
+
+  // build smooth daily expected-cumulative map from the ladder
+  function buildExpected(base){
+    const map={}; let cum=base;
+    WEEKS.forEach(w=>{
+      const n=days(w.start,w.end)+1, per=w.target/n;
+      for(let i=0;i<n;i++){ const day=iso(new Date(d(w.start).getTime()+i*86400000)); cum+=per; map[day]=cum; }
+    });
+    return map;
+  }
+  function expectedAsOf(s,base,map){
+    s=clampDay(s);
+    if(days(START,s)<=0) return base;
+    // walk back to nearest day present
+    let cur=s;
+    for(let i=0;i<60;i++){ if(map[cur]!=null) return map[cur]; cur=iso(new Date(d(cur).getTime()-86400000)); if(cur<START) break; }
+    return base;
+  }
+
+  // ---- state ----
+  let state={ base:72, cpp:18, paid:70, totals:{ "2026-07-09":72 } };
+  let mem=false; // in-memory fallback flag
+
+  async function load(){
+    try{ const r=await window.storage.get(KEY); if(r&&r.value){ Object.assign(state, JSON.parse(r.value)); } }
+    catch(e){ /* first run or storage unavailable */ }
+  }
+  async function save(){
+    try{ await window.storage.set(KEY, JSON.stringify(state)); }
+    catch(e){ mem=true; }
+  }
+
+  // ---- derived ----
+  function sortedDates(){ return Object.keys(state.totals).sort(); }
+  function currentTotal(){ const ds=sortedDates(); return ds.length? state.totals[ds[ds.length-1]] : state.base; }
+  function totalAsOf(s){ // most recent logged total on/before s, else base
+    const ds=sortedDates().filter(x=>x<=s);
+    return ds.length? state.totals[ds[ds.length-1]] : state.base;
+  }
+
+  // ---- render ----
+  function render(){
+    // ensure baseline entry tracks the setting
+    if(state.totals["2026-07-09"]!=null) state.totals["2026-07-09"]=state.base;
+    const expMap=buildExpected(state.base);
+    const now=currentTotal();
+    const t=todayISO();
+    const daysLeft=Math.max(0,days(t,OPENING));
+    const exp=Math.round(expectedAsOf(t,state.base,expMap));
+    const pace=now-exp;
+    const remaining=Math.max(0,TARGET-now);
+    const rate= daysLeft>0 ? remaining/daysLeft : remaining;
+
+    // hero
+    document.getElementById("h-now").textContent=nf.format(now);
+    document.getElementById("h-now-foot").textContent=`of 2,000  ·  ${((now/TARGET)*100).toFixed(1)}%`;
+    const pcard=document.getElementById("h-pace-card"), pel=document.getElementById("h-pace"),
+          ptag=document.getElementById("h-pace-tag"), ptagt=document.getElementById("h-pace-tag-t");
+    pel.textContent=(pace>=0?"+":"")+nf.format(pace);
+    pel.className="big "+(pace>=0?"ok":(pace>-40?"watch":"bad"));
+    ptag.className="tag "+(pace>=0?"ok":(pace>-40?"watch":"bad"));
+    ptagt.textContent = pace>=0? "ahead of plan" : (pace>-40? "just behind" : "behind plan");
+    document.getElementById("h-pace-tag").style.display = "inline-flex";
+    document.getElementById("h-rate").textContent=nf.format(Math.ceil(rate));
+    document.getElementById("h-days").textContent=daysLeft;
+
+    // pace bar
+    document.getElementById("bar-actual").style.width=Math.min(100,(now/TARGET)*100)+"%";
+    const pm=document.getElementById("bar-plan");
+    pm.style.left=Math.min(100,(exp/TARGET)*100)+"%";
+    document.getElementById("bar-plan-lab").textContent="plan "+nf.format(exp);
+
+    // ladder
+    const tb=document.getElementById("ladder"); tb.innerHTML="";
+    let cumT=state.base;
+    WEEKS.forEach(w=>{
+      cumT+=w.target;
+      const wkStartPrev=iso(new Date(d(w.start).getTime()-86400000));
+      const startTotal=totalAsOf(wkStartPrev);
+      const endTotal=totalAsOf(w.end < t ? w.end : t);
+      const added=Math.max(0,endTotal-startTotal);
+      const isNow = t>=w.start && t<=w.end;
+      const isDone = t> w.end;
+      const memAtEnd = isDone||isNow ? endTotal : null;
+      const variance = (isNow||isDone)? (endTotal - cumT) : null;
+      const dleftWk = isNow ? Math.max(1, days(t,w.end)+1) : (days(w.start,w.end)+1);
+      const stillWk = isNow ? Math.max(0, w.target-added) : w.target;
+      const perDay = Math.ceil(stillWk/dleftWk);
+      const tr=document.createElement("tr");
+      tr.className = isNow?"now":(isDone?"done":"");
+      const vTxt = variance==null?"—":(variance>=0?`<span class="v-pos">+${nf.format(variance)}</span>`:`<span class="v-neg">${nf.format(variance)}</span>`);
+      tr.innerHTML=`<td class="wk">Week ${w.n}${isNow?" · now":""}</td>
+        <td>${fmtDate(w.start)} – ${fmtDate(w.end)}</td>
+        <td>${nf.format(w.target)}</td>
+        <td>${nf.format(cumT)}</td>
+        <td>${(isNow||isDone)?nf.format(added):"—"}</td>
+        <td>${memAtEnd==null?"—":nf.format(memAtEnd)}</td>
+        <td>${vTxt}</td>
+        <td>${isDone?"—":nf.format(perDay)}</td>`;
+      tb.appendChild(tr);
+    });
+
+    // cost panel
+    const paidShare=Math.max(0,Math.min(100,state.paid))/100;
+    const paidMembers=remaining*paidShare;
+    document.getElementById("c-remaining").textContent=nf.format(remaining);
+    document.getElementById("c-paidmembers").textContent=nf.format(Math.round(paidMembers));
+    document.getElementById("c-spend").textContent=gbp(paidMembers*state.cpp);
+
+    // starting point panel
+    document.getElementById("s-gap").textContent=nf.format(TARGET-state.base);
+    document.getElementById("s-flat").textContent=nf.format(Math.ceil((TARGET-state.base)/Math.max(1,days(START,OPENING))))+" / day";
+    document.getElementById("s-logged").textContent=`${sortedDates().length} ${sortedDates().length===1?"entry":"entries"}`;
+
+    // history
+    const hb=document.getElementById("history"); hb.innerHTML="";
+    const ds=sortedDates();
+    if(ds.length===0){ hb.innerHTML=`<tr><td colspan="5" style="text-align:center;color:var(--dim);font-family:var(--sans)">No totals logged yet.</td></tr>`; }
+    ds.slice().reverse().forEach((day,idx)=>{
+      const total=state.totals[day];
+      const prevDay=ds[ds.length-2-idx];
+      const prevTotal= prevDay!=null? state.totals[prevDay] : state.base;
+      const add=total-prevTotal;
+      const expDay=Math.round(expectedAsOf(day,state.base,expMap));
+      const dv=total-expDay;
+      const canDel = day!=="2026-07-09";
+      const tr=document.createElement("tr");
+      tr.innerHTML=`<td class="wk">${fmtDate(day)}</td>
+        <td>${nf.format(total)}</td>
+        <td>${add>=0?"+":""}${nf.format(add)}</td>
+        <td>${dv>=0?`<span class="v-pos">+${nf.format(dv)}</span>`:`<span class="v-neg">${nf.format(dv)}</span>`}</td>
+        <td>${canDel?`<button class="del" data-day="${day}">remove</button>`:""}</td>`;
+      hb.appendChild(tr);
+    });
+    hb.querySelectorAll(".del").forEach(b=>b.onclick=()=>{ delete state.totals[b.dataset.day]; save(); render(); });
+
+    document.getElementById("stamp").textContent=(mem?"session only · ":"")+"updated "+new Date().toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
+    document.getElementById("io").value=JSON.stringify(state,null,2);
+  }
+
+  // ---- events ----
+  function bind(){
+    const inDate=document.getElementById("in-date");
+    inDate.value=todayISO();
+    document.getElementById("btn-log").onclick=()=>{
+      const day=inDate.value, val=parseInt(document.getElementById("in-total").value,10);
+      if(!day||isNaN(val)){ document.getElementById("in-total").focus(); return; }
+      state.totals[day]=val; save(); document.getElementById("in-total").value=""; render();
+    };
+    const bind2=(id,key,cast)=>{ const el=document.getElementById(id); el.oninput=()=>{ const v=cast(el.value); if(!isNaN(v)){ state[key]=v; save(); render(); } }; };
+    bind2("set-cpp","cpp",parseFloat);
+    bind2("set-paid","paid",parseFloat);
+    document.getElementById("set-base").oninput=e=>{ const v=parseInt(e.target.value,10); if(!isNaN(v)){ state.base=v; state.totals["2026-07-09"]=v; save(); render(); } };
+    document.getElementById("btn-reset").onclick=()=>{ if(confirm("Reset all logged totals and settings?")){ state={base:72,cpp:18,paid:70,totals:{"2026-07-09":72}}; save(); syncInputs(); render(); } };
+    document.getElementById("btn-copy").onclick=()=>{ const t=document.getElementById("io"); t.select(); try{document.execCommand("copy");}catch(e){} };
+    document.getElementById("btn-import").onclick=()=>{ try{ const o=JSON.parse(document.getElementById("io").value); state=Object.assign({base:72,cpp:18,paid:70,totals:{}},o); save(); syncInputs(); render(); }catch(e){ alert("That is not valid data."); } };
+  }
+  function syncInputs(){
+    document.getElementById("set-cpp").value=state.cpp;
+    document.getElementById("set-paid").value=state.paid;
+    document.getElementById("set-base").value=state.base;
+  }
+
+  (async function init(){ await load(); bind(); syncInputs(); render(); })();
+})();
+</script>
+</body>
+</html>
