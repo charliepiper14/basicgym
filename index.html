@@ -1,9 +1,9 @@
-<!doctype html>
+<!doctype html> 
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BasicGym Riverside - Presale Pacing</title>
+<title>BasicGym Riverside — Presale Pacing</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -125,32 +125,32 @@
       <div class="mark"></div>
       <div>
         <h1>Riverside Presale Pacing</h1>
-        <div class="sub">Target <b>2,000 members</b> by <b>22 Aug 2026</b> &nbsp;|&nbsp; opening day</div>
+        <div class="sub">Target <b>2,000 members</b> by <b>22 Aug 2026</b> &nbsp;·&nbsp; opening day</div>
       </div>
     </div>
-    <div class="updated" id="stamp">-</div>
+    <div class="updated" id="stamp">—</div>
   </div>
 
   <!-- HERO -->
   <div class="hero">
     <div class="stat">
       <div class="lab">Members now</div>
-      <div class="big" id="h-now">-</div>
+      <div class="big" id="h-now">—</div>
       <div class="foot" id="h-now-foot">of 2,000</div>
     </div>
     <div class="stat" id="h-pace-card">
       <div class="lab">Pace vs plan</div>
-      <div class="big" id="h-pace">-</div>
-      <div class="tag" id="h-pace-tag"><span class="dot"></span><span id="h-pace-tag-t">-</span></div>
+      <div class="big" id="h-pace">—</div>
+      <div class="tag" id="h-pace-tag"><span class="dot"></span><span id="h-pace-tag-t">—</span></div>
     </div>
     <div class="stat accent">
       <div class="lab">Run-rate needed</div>
-      <div class="big" id="h-rate">-</div>
+      <div class="big" id="h-rate">—</div>
       <div class="foot" id="h-rate-foot">per day to still hit 2,000</div>
     </div>
     <div class="stat">
       <div class="lab">Days to opening</div>
-      <div class="big" id="h-days">-</div>
+      <div class="big" id="h-days">—</div>
       <div class="foot" id="h-days-foot">to 22 Aug</div>
     </div>
   </div>
@@ -199,7 +199,7 @@
         <tbody id="ladder"></tbody>
       </table>
     </div>
-    <div class="note">The ladder is back-weighted on purpose. Presale accelerates into opening as urgency builds, the open days land, ground team presence grows and spend steps up. Week one at about 8 a day is close to where the account sits now; the climb after that is what the spend plan pays for.</div>
+    <div class="note">The ladder is back-weighted on purpose. Presale accelerates into opening as urgency builds, the open days land, ground team presence grows and spend steps up. Week one at around 12 a day is roughly where the account sits now; the climb after that is what the spend plan pays for.</div>
   </div>
 
   <!-- COST + SETTINGS -->
@@ -217,19 +217,19 @@
           <label style="font-size:12px;color:var(--muted);min-width:150px">Share from paid ads</label>
           <input type="number" id="set-paid" min="0" max="100" step="5" value="70"><span class="u">%</span>
         </div>
-        <div class="kv"><span class="k">Members still to get</span><span class="val" id="c-remaining">-</span></div>
-        <div class="kv"><span class="k">Of those, from paid</span><span class="val" id="c-paidmembers">-</span></div>
-        <div class="kv"><span class="k">Implied ad spend left</span><span class="val big" id="c-spend">-</span></div>
+        <div class="kv"><span class="k">Members still to get</span><span class="val" id="c-remaining">—</span></div>
+        <div class="kv"><span class="k">Of those, from paid</span><span class="val" id="c-paidmembers">—</span></div>
+        <div class="kv"><span class="k">Implied ad spend left</span><span class="val big" id="c-spend">—</span></div>
       </div>
       <div class="panel">
         <h3>Starting point</h3>
-        <p class="desc">Baseline members already signed up as of 9 Jul (Ashbourne is source of truth). Adjust if the real figure differs.</p>
+        <p class="desc">Confirmed members already signed up as of 13 Jul (Ashbourne is source of truth). Adjust if the real figure differs.</p>
         <div class="inp-inline" style="margin-bottom:14px">
-          <label style="font-size:12px;color:var(--muted);min-width:150px">Baseline on 9 Jul</label>
-          <input type="number" id="set-base" min="0" step="1" value="101">
+          <label style="font-size:12px;color:var(--muted);min-width:150px">Baseline on 13 Jul</label>
+          <input type="number" id="set-base" min="0" step="1" value="111">
         </div>
-        <div class="kv"><span class="k">Total gap to close</span><span class="val" id="s-gap">-</span></div>
-        <div class="kv"><span class="k">Flat average needed</span><span class="val" id="s-flat">-</span></div>
+        <div class="kv"><span class="k">Total gap to close</span><span class="val" id="s-gap">—</span></div>
+        <div class="kv"><span class="k">Flat average needed</span><span class="val" id="s-flat">—</span></div>
         <div class="kv"><span class="k">Logged so far</span><span class="val" id="s-logged">0 entries</span></div>
       </div>
     </div>
@@ -261,18 +261,17 @@
 <script>
 (function(){
   "use strict";
-  const TARGET=2000, OPENING="2026-08-22", START="2026-07-09";
-  // Back-weighted weekly ladder. Weekly targets sum to 1928 (2000 - 72 baseline).
+  const TARGET=2000, OPENING="2026-08-22", START="2026-07-13";
+  // Back-weighted weekly ladder. Weekly targets sum to 1889 (2000 - 111 baseline on 13 Jul).
   const WEEKS=[
-    {n:1,start:"2026-07-09",end:"2026-07-15",target:59},
-    {n:2,start:"2026-07-16",end:"2026-07-22",target:138},
-    {n:3,start:"2026-07-23",end:"2026-07-29",target:227},
-    {n:4,start:"2026-07-30",end:"2026-08-05",target:315},
-    {n:5,start:"2026-08-06",end:"2026-08-12",target:394},
-    {n:6,start:"2026-08-13",end:"2026-08-19",target:492},
-    {n:7,start:"2026-08-20",end:"2026-08-22",target:274}
+    {n:1,start:"2026-07-13",end:"2026-07-18",target:70},
+    {n:2,start:"2026-07-19",end:"2026-07-25",target:140},
+    {n:3,start:"2026-07-26",end:"2026-08-01",target:225},
+    {n:4,start:"2026-08-02",end:"2026-08-08",target:320},
+    {n:5,start:"2026-08-09",end:"2026-08-15",target:435},
+    {n:6,start:"2026-08-16",end:"2026-08-22",target:699}
   ];
-  const KEY="bg_riverside_pacing_v1";
+  const KEY="bg_riverside_pacing_v3";
   const nf=new Intl.NumberFormat("en-GB");
   const gbp=n=>"£"+new Intl.NumberFormat("en-GB",{maximumFractionDigits:0}).format(Math.max(0,Math.round(n)));
 
@@ -286,31 +285,33 @@
 
   // build smooth daily expected-cumulative map from the ladder
   function buildExpected(base){
-    // knots: baseline at start, each week-end at its cumulative target; lands exactly on TARGET at opening
-    const knots=[{date:START,val:base}]; let cum=base;
-    WEEKS.forEach(w=>{ cum+=w.target; knots.push({date:w.end,val:cum}); });
-    return knots;
+    // map[date] = plan cumulative you should have entering that day (start of day),
+    // so the baseline date reads exactly at base and you are not shown behind on day one.
+    const map={}; let cum=base;
+    WEEKS.forEach(w=>{
+      const n=days(w.start,w.end)+1, per=w.target/n;
+      for(let i=0;i<n;i++){ const day=iso(new Date(d(w.start).getTime()+i*86400000)); map[day]=cum; cum+=per; }
+    });
+    return map;
   }
-  function expectedAsOf(s,base,knots){
-    if(s<=START) return base;
-    if(s>=OPENING) return TARGET;
-    for(let i=0;i<knots.length-1;i++){
-      const a=knots[i], b=knots[i+1];
-      if(s>=a.date && s<=b.date){
-        const span=days(a.date,b.date); if(span<=0) return b.val;
-        return a.val + (b.val-a.val)*(days(a.date,s)/span);
-      }
-    }
+  function expectedAsOf(s,base,map){
+    s=clampDay(s);
+    if(days(START,s)<=0) return base;
+    // walk back to nearest day present
+    let cur=s;
+    for(let i=0;i<60;i++){ if(map[cur]!=null) return map[cur]; cur=iso(new Date(d(cur).getTime()-86400000)); if(cur<START) break; }
     return base;
   }
 
   // ---- state ----
-  let state={ base:101, cpp:18, paid:70, totals:{} };
+  // base = fixed plan anchor (baseline on 13 Jul). totals = actual counts logged over time.
+  // The two are kept separate so logging a fresh total always flows through to every metric.
+  let state={ base:111, cpp:18, paid:70, totals:{} };
   let mem=false; // in-memory fallback flag
 
   function load(){
-    try{ const r=localStorage.getItem(KEY); if(r){ Object.assign(state, JSON.parse(r)); } }
-    catch(e){ mem=true; }
+    try{ const raw=localStorage.getItem(KEY); if(raw){ Object.assign(state, JSON.parse(raw)); } }
+    catch(e){ /* first run or storage unavailable */ }
   }
   function save(){
     try{ localStorage.setItem(KEY, JSON.stringify(state)); }
@@ -327,7 +328,6 @@
 
   // ---- render ----
   function render(){
-    // baseline is a standalone anchor; logged totals are independent
     const expMap=buildExpected(state.base);
     const now=currentTotal();
     const t=todayISO();
@@ -339,13 +339,13 @@
 
     // hero
     document.getElementById("h-now").textContent=nf.format(now);
-    document.getElementById("h-now-foot").textContent=`of 2,000  |  ${((now/TARGET)*100).toFixed(1)}%`;
+    document.getElementById("h-now-foot").textContent=`of 2,000  ·  ${((now/TARGET)*100).toFixed(1)}%`;
     const pcard=document.getElementById("h-pace-card"), pel=document.getElementById("h-pace"),
           ptag=document.getElementById("h-pace-tag"), ptagt=document.getElementById("h-pace-tag-t");
     pel.textContent=(pace>=0?"+":"")+nf.format(pace);
     pel.className="big "+(pace>=0?"ok":(pace>-40?"watch":"bad"));
     ptag.className="tag "+(pace>=0?"ok":(pace>-40?"watch":"bad"));
-    ptagt.textContent = pace>0? "ahead of plan" : (pace===0? "on plan" : (pace>-40? "just behind" : "behind plan"));
+    ptagt.textContent = pace>=0? "ahead of plan" : (pace>-40? "just behind" : "behind plan");
     document.getElementById("h-pace-tag").style.display = "inline-flex";
     document.getElementById("h-rate").textContent=nf.format(Math.ceil(rate));
     document.getElementById("h-days").textContent=daysLeft;
@@ -374,15 +374,15 @@
       const perDay = Math.ceil(stillWk/dleftWk);
       const tr=document.createElement("tr");
       tr.className = isNow?"now":(isDone?"done":"");
-      const vTxt = variance==null?"-":(variance>=0?`<span class="v-pos">+${nf.format(variance)}</span>`:`<span class="v-neg">${nf.format(variance)}</span>`);
-      tr.innerHTML=`<td class="wk">Week ${w.n}${isNow?" | now":""}</td>
-        <td>${fmtDate(w.start)} to ${fmtDate(w.end)}</td>
+      const vTxt = variance==null?"—":(variance>=0?`<span class="v-pos">+${nf.format(variance)}</span>`:`<span class="v-neg">${nf.format(variance)}</span>`);
+      tr.innerHTML=`<td class="wk">Week ${w.n}${isNow?" · now":""}</td>
+        <td>${fmtDate(w.start)} – ${fmtDate(w.end)}</td>
         <td>${nf.format(w.target)}</td>
         <td>${nf.format(cumT)}</td>
-        <td>${(isNow||isDone)?nf.format(added):"-"}</td>
-        <td>${memAtEnd==null?"-":nf.format(memAtEnd)}</td>
+        <td>${(isNow||isDone)?nf.format(added):"—"}</td>
+        <td>${memAtEnd==null?"—":nf.format(memAtEnd)}</td>
         <td>${vTxt}</td>
-        <td>${isDone?"-":nf.format(perDay)}</td>`;
+        <td>${isDone?"—":nf.format(perDay)}</td>`;
       tb.appendChild(tr);
     });
 
@@ -420,7 +420,7 @@
     });
     hb.querySelectorAll(".del").forEach(b=>b.onclick=()=>{ delete state.totals[b.dataset.day]; save(); render(); });
 
-    document.getElementById("stamp").textContent=(mem?"session only | ":"")+"updated "+new Date().toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
+    document.getElementById("stamp").textContent=(mem?"session only · ":"")+"updated "+new Date().toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
     document.getElementById("io").value=JSON.stringify(state,null,2);
   }
 
@@ -437,9 +437,9 @@
     bind2("set-cpp","cpp",parseFloat);
     bind2("set-paid","paid",parseFloat);
     document.getElementById("set-base").oninput=e=>{ const v=parseInt(e.target.value,10); if(!isNaN(v)){ state.base=v; save(); render(); } };
-    document.getElementById("btn-reset").onclick=()=>{ if(confirm("Reset all logged totals and settings?")){ state={base:101,cpp:18,paid:70,totals:{}}; save(); syncInputs(); render(); } };
+    document.getElementById("btn-reset").onclick=()=>{ if(confirm("Reset all logged totals and settings?")){ state={base:111,cpp:18,paid:70,totals:{}}; save(); syncInputs(); render(); } };
     document.getElementById("btn-copy").onclick=()=>{ const t=document.getElementById("io"); t.select(); try{document.execCommand("copy");}catch(e){} };
-    document.getElementById("btn-import").onclick=()=>{ try{ const o=JSON.parse(document.getElementById("io").value); state=Object.assign({base:101,cpp:18,paid:70,totals:{}},o); save(); syncInputs(); render(); }catch(e){ alert("That is not valid data."); } };
+    document.getElementById("btn-import").onclick=()=>{ try{ const o=JSON.parse(document.getElementById("io").value); state=Object.assign({base:111,cpp:18,paid:70,totals:{}},o); save(); syncInputs(); render(); }catch(e){ alert("That is not valid data."); } };
   }
   function syncInputs(){
     document.getElementById("set-cpp").value=state.cpp;
