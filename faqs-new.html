@@ -1,0 +1,444 @@
+<!-- ============================================================
+     BasicGym - FAQS  (basicgym.co.uk/faqs/)  v2 two-pane layout
+     Paste into ONE Elementor "HTML" widget (Canvas). Scoped under .bg-faq.
+     Footer = SEPARATE basicgym-footer-shared.html widget. Slug = faqs.
+     Layout mirrors Basic-Fit: subjects on the left, answers on the right.
+     All Q&A stays in the DOM (hidden panels) so Google can still read it.
+     ============================================================ -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap');
+.bg-faq{--white:#FFFFFF;--paper:#FFFFFF;--cream:#F5F4F0;--ink:#0E0E0E;--orange:#FF6600;--orange-bright:#FF7A1A;--orange-deep:#CC5200;--muted:#565659;--muted-dark:#A9A9AE;--line:#E7E5E0;--line-dark:#262629;--font:'Cooper Hewitt','Hanken Grotesk',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-family:var(--font);}
+.bg-faq *{box-sizing:border-box;margin:0;padding:0}
+.bg-faq{background:var(--white);color:var(--ink);font-family:var(--font);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.bg-faq .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+.bg-faq .display{font-family:var(--font);font-weight:900;letter-spacing:-0.015em;text-transform:uppercase;line-height:0.95}
+.bg-faq .orange{color:var(--orange)}
+.bg-faq a{color:inherit;text-decoration:none}
+.bg-faq img{max-width:100%;display:block}
+.bg-faq svg{display:block}
+.bg-faq .sec{padding:74px 0}
+.bg-faq .sec--cream{background:var(--cream)}
+.bg-faq .kicker{font-size:12.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--orange)}
+.bg-faq .h2{font-size:clamp(28px,5vw,48px);margin-top:12px}
+.bg-faq .lead{color:var(--muted);font-size:17px;margin-top:14px;max-width:620px}
+.bg-faq .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:800;font-size:15px;padding:15px 26px;border-radius:8px;text-transform:uppercase;letter-spacing:0.02em;transition:transform .12s ease, background .15s ease, border-color .15s ease}
+.bg-faq .btn-primary{background:var(--orange);color:#fff}
+.bg-faq .btn-primary:hover{background:var(--orange-deep);transform:translateY(-1px)}
+.bg-faq .btn-dark{background:var(--ink);color:#fff}
+.bg-faq .btn-dark:hover{transform:translateY(-1px);background:#000}
+.bg-faq .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}
+
+/* ---------- HERO (unchanged brand pattern) ---------- */
+.bg-faq .hero{position:relative;color:#fff;overflow:hidden;background:var(--ink)}
+.bg-faq .hero-bg{position:absolute;inset:0;z-index:0}
+.bg-faq .hero-bg img{width:100%;height:100%;object-fit:cover}
+.bg-faq .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,14,14,0.92) 0%,rgba(14,14,14,0.78) 42%,rgba(14,14,14,0.45) 100%)}
+.bg-faq .hero-inner{position:relative;z-index:1;padding:88px 0 58px;max-width:680px}
+.bg-faq .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange)}
+.bg-faq .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--orange)}
+.bg-faq .hero h1{font-size:clamp(42px,8vw,86px);margin:18px 0 0}
+.bg-faq .hero .lead{color:#EDEDED;max-width:560px}
+
+/* ---------- STAT STRIP ---------- */
+.bg-faq .statbar{background:var(--orange);color:var(--ink)}
+.bg-faq .statbar .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.bg-faq .sb{padding:20px 18px;display:flex;align-items:baseline;gap:10px;justify-content:center;border-right:1px solid rgba(0,0,0,0.16)}
+.bg-faq .sb:last-child{border-right:0}
+.bg-faq .sb .n{font-weight:900;font-size:24px;line-height:1}
+.bg-faq .sb .l{font-size:11.5px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase}
+@media(max-width:760px){.bg-faq .statbar .wrap{grid-template-columns:1fr 1fr}.bg-faq .sb:nth-child(2){border-right:0}.bg-faq .sb:nth-child(1),.bg-faq .sb:nth-child(2){border-bottom:1px solid rgba(0,0,0,0.16)}}
+
+/* ---------- TWO-PANE FAQ ---------- */
+.bg-faq .faq2{display:grid;grid-template-columns:320px 1fr;gap:34px;margin-top:38px;align-items:start}
+@media(max-width:900px){.bg-faq .faq2{grid-template-columns:1fr;gap:22px}}
+
+/* left rail */
+.bg-faq .subj-head{font-size:12.5px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);padding:0 4px 12px}
+.bg-faq .subjects{background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.bg-faq .subj{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--line);padding:17px 20px;font-family:var(--font);font-size:15.5px;font-weight:700;color:var(--ink);cursor:pointer;transition:background .14s ease,color .14s ease;border-left:3px solid transparent}
+.bg-faq .subj:last-child{border-bottom:0}
+.bg-faq .subj:hover{background:#FBFAF7;color:var(--orange-deep)}
+.bg-faq .subj .chev{flex:0 0 auto;transition:transform .18s ease}
+.bg-faq .subj .chev svg{width:16px;height:16px;stroke:var(--muted-dark);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.bg-faq .subj .lead-ico{flex:0 0 auto;width:18px;display:flex;justify-content:center}
+.bg-faq .subj .lead-ico svg{width:15px;height:15px;stroke:var(--orange);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0}
+.bg-faq .subj .txt{flex:1 1 auto;display:flex;align-items:center;gap:11px}
+.bg-faq .subj[aria-selected="true"]{background:#FFF3EA;color:var(--orange-deep);border-left-color:var(--orange)}
+.bg-faq .subj[aria-selected="true"] .lead-ico svg{opacity:1}
+.bg-faq .subj[aria-selected="true"] .chev svg{stroke:var(--orange)}
+.bg-faq .subj[aria-selected="true"] .chev{transform:translateX(2px)}
+
+/* right panel */
+.bg-faq .panel-wrap{min-height:280px}
+.bg-faq .panel{display:none}
+.bg-faq .panel.is-active{display:block;animation:bgfade .28s ease both}
+@keyframes bgfade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.bg-faq .panel-title{font-size:clamp(22px,3.4vw,30px);font-weight:900;letter-spacing:-0.01em;text-transform:uppercase;line-height:1}
+.bg-faq .panel-sub{color:var(--muted);font-size:15px;margin-top:8px}
+.bg-faq .group{margin-top:24px}
+.bg-faq .group + .group{margin-top:30px}
+.bg-faq .group-h{font-size:12.5px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);padding-bottom:10px;border-bottom:2px solid var(--line)}
+.bg-faq .qa{border-bottom:1px solid var(--line)}
+.bg-faq .qa-q{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;text-align:left;background:transparent;border:0;padding:18px 4px;font-family:var(--font);font-size:16px;font-weight:700;color:var(--ink);cursor:pointer}
+.bg-faq .qa-q:hover{color:var(--orange-deep)}
+.bg-faq .qa-q .ico{flex:0 0 auto;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;transition:transform .22s ease,border-color .18s ease,background .18s ease}
+.bg-faq .qa-q .ico svg{width:13px;height:13px;stroke:var(--ink);fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.bg-faq .qa-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.bg-faq .qa-a p{font-size:15px;color:var(--muted);padding:0 4px 20px;max-width:640px}
+.bg-faq .qa-a p + p{padding-top:12px}
+.bg-faq .qa-a a{color:var(--orange-deep);font-weight:700;border-bottom:1px solid rgba(204,82,0,.3)}
+.bg-faq .qa[aria-expanded="true"] .qa-q{color:var(--orange-deep)}
+.bg-faq .qa[aria-expanded="true"] .qa-q .ico{transform:rotate(45deg);border-color:var(--orange);background:var(--orange)}
+.bg-faq .qa[aria-expanded="true"] .qa-q .ico svg{stroke:#fff}
+
+/* ---------- CAN'T FIND ---------- */
+.bg-faq .cant{background:var(--ink);color:#fff;border-radius:20px;padding:44px 38px;margin-top:56px;display:grid;grid-template-columns:1.1fr 0.9fr;gap:30px;align-items:center}
+@media(max-width:760px){.bg-faq .cant{grid-template-columns:1fr;padding:32px 24px;text-align:center}}
+.bg-faq .cant h3{font-size:clamp(26px,4.4vw,40px);font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;line-height:0.98}
+.bg-faq .cant p{color:#cfcfcf;font-size:15.5px;margin-top:12px;max-width:420px}
+@media(max-width:760px){.bg-faq .cant p{margin-left:auto;margin-right:auto}}
+.bg-faq .cant .actions{display:flex;flex-direction:column;gap:12px}
+.bg-faq .contact-card{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.05);border:1px solid var(--line-dark);border-radius:12px;padding:16px 18px}
+.bg-faq .contact-card .ci{flex:0 0 auto;width:42px;height:42px;border-radius:10px;background:rgba(255,102,0,0.14);border:1px solid rgba(255,102,0,0.3);display:flex;align-items:center;justify-content:center}
+.bg-faq .contact-card .ci svg{width:20px;height:20px;stroke:var(--orange);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.bg-faq .contact-card .t{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted-dark)}
+.bg-faq .contact-card .v{font-size:15px;font-weight:700;color:#fff;margin-top:2px}
+
+/* ---------- STICKY CTA (mobile) ---------- */
+.bg-faq .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--ink);border-top:1px solid var(--line-dark);padding:11px 16px;display:none;align-items:center;justify-content:space-between;gap:12px}
+.bg-faq .sticky-cta .p{font-size:13px;font-weight:700;line-height:1.2;color:#fff}
+.bg-faq .sticky-cta .p b{color:var(--orange)}
+.bg-faq .sticky-cta .p small{display:block;color:var(--muted-dark);font-weight:500;font-size:11px}
+.bg-faq .sticky-cta a{background:var(--orange);color:#fff;font-weight:800;font-size:14px;padding:13px 18px;border-radius:8px;text-transform:uppercase;white-space:nowrap}
+@media(max-width:860px){.bg-faq .sticky-cta{display:flex}.bg-faq{padding-bottom:70px}}
+@media(prefers-reduced-motion:reduce){.bg-faq .panel.is-active{animation:none}.bg-faq .btn:hover{transform:none}}
+
+/* ---------- NAV (unchanged brand pattern) ---------- */
+.bg-faq .nav{position:sticky;top:0;z-index:60;background:#0E0E0E;border-bottom:1px solid rgba(255,255,255,.08)}
+.bg-faq .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
+.bg-faq .nav .logo img{height:40px;width:auto}
+.bg-faq .nav .links{display:flex;align-items:center;gap:26px}
+.bg-faq .nav .links a{color:#e7e7e7;font-weight:700;font-size:14px}
+.bg-faq .nav .links a:hover{color:var(--orange-bright)}
+.bg-faq .nav .links a[aria-current="page"]{color:var(--orange-bright)}
+.bg-faq .btn.orange{background:var(--orange);color:#fff;box-shadow:0 10px 24px rgba(255,102,0,.34);border-radius:12px}
+.bg-faq .btn.orange:hover{background:var(--orange-deep)}
+.bg-faq .nav .btn{padding:11px 18px;font-size:13px}
+.bg-faq .nav .nav-toggle{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.bg-faq .nav .burger{display:none}
+.bg-faq .nav .links .nav-link-cta{display:none}
+.bg-faq .nav .navdrop{position:relative;display:flex;align-items:center}
+.bg-faq .nav .navdrop-top{display:inline-flex;align-items:center;gap:6px;color:#e7e7e7;font-weight:700;font-size:14px;cursor:pointer}
+.bg-faq .nav .navdrop-top:hover{color:var(--orange-bright)}
+.bg-faq .nav .navdrop-top i{font-style:normal;font-size:11px}
+.bg-faq .nav .navdrop-menu{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%) translateY(6px);background:#161616;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:8px;min-width:212px;opacity:0;visibility:hidden;transition:.18s;box-shadow:0 22px 44px -18px rgba(0,0,0,.8);z-index:70}
+.bg-faq .nav .navdrop:hover .navdrop-menu,.bg-faq .nav .navdrop:focus-within .navdrop-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.bg-faq .nav .navdrop-menu a{display:block;padding:10px 13px;border-radius:8px;color:#D6D6D8;font-weight:600;font-size:14px;border:0}
+.bg-faq .nav .navdrop-menu a:hover{background:#222;color:#fff}
+@media(max-width:860px){
+  .bg-faq .nav .nav-cta-desktop{display:none}
+  .bg-faq .nav .links{display:none;position:absolute;top:66px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#0E0E0E;border-bottom:1px solid rgba(255,255,255,.08);padding:6px 20px 16px;box-shadow:0 22px 44px -22px rgba(0,0,0,.8)}
+  .bg-faq .nav .nav-toggle:checked ~ .links{display:flex}
+  .bg-faq .nav .burger{display:inline-flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;cursor:pointer;margin-right:-9px}
+  .bg-faq .nav .burger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:transform .25s ease,opacity .2s ease}
+  .bg-faq .nav .links a{padding:14px 2px;font-size:15px;border-bottom:1px solid rgba(255,255,255,.07);color:#e7e7e7}
+  .bg-faq .nav .links .nav-link-cta{display:flex;margin-top:12px;padding:14px;border-bottom:0;justify-content:center}
+  .bg-faq .nav .navdrop{flex-direction:column;align-items:stretch}
+  .bg-faq .nav .navdrop-top{padding:14px 2px;border-bottom:1px solid rgba(255,255,255,.07)}
+  .bg-faq .nav .navdrop-menu{position:static;opacity:1;visibility:visible;transform:none;background:transparent;border:0;box-shadow:none;padding:2px 0 0 14px;min-width:0}
+  .bg-faq .nav .navdrop-menu a{padding:10px 2px;font-size:14px;color:#bdbdbd}
+  .bg-faq .nav .nav-toggle:checked ~ .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .bg-faq .nav .nav-toggle:checked ~ .burger span:nth-child(2){opacity:0}
+  .bg-faq .nav .nav-toggle:checked ~ .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+}
+</style>
+
+<div class="bg-faq">
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="wrap">
+      <a class="logo" href="/" aria-label="BasicGym"><img src="https://res.cloudinary.com/dcnabm5nc/image/upload/e_trim/v1782645760/Transparent_background_logos_oakfhz.png" alt="BasicGym" /></a>
+      <input type="checkbox" id="navtoggle" class="nav-toggle" aria-hidden="true">
+      <div class="links">
+        <a href="/classes/">Classes</a>
+        <a href="/nottingham/">Nottingham</a>
+        <a href="/membership/">Membership</a>
+        <a href="/open-day/">Open days</a>
+        <div class="navdrop">
+          <a class="navdrop-top" href="/about-us/">About us <i>&#9662;</i></a>
+          <div class="navdrop-menu">
+            <a href="/about-us/">About us</a>
+            <a href="/students/">Students</a>
+            <a href="/corporate-membership/">Corporate Membership</a>
+            <a href="/personal-training/">Personal Training</a>
+            <a href="/careers/">Careers</a>
+            <a href="/refer-a-friend/">Refer a Friend</a>
+          </div>
+        </div>
+        <a class="btn orange nav-link-cta" href="/join/">Get &pound;5 month</a>
+      </div>
+      <a class="btn orange nav-cta-desktop" href="/join/">Get &pound;5 month</a>
+      <label for="navtoggle" class="burger" aria-label="Open menu"><span></span><span></span><span></span></label>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"><img src="https://res.cloudinary.com/dcnabm5nc/image/upload/f_auto,q_auto,w_1600/v1782298061/basicgymhero_iwhmp4.png" alt="BasicGym interior" fetchpriority="high"></div>
+    <div class="wrap"><div class="hero-inner">
+      <span class="eyebrow"><span class="dot"></span>How can we help?</span>
+      <h1 class="display">Everything you<br><span class="orange">need to know.</span></h1>
+      <p class="lead">Pick a subject on the left, find your answer on the right. Still stuck? Email info@basicgym.co.uk and a real person will help.</p>
+      <div class="cta-row"><a class="btn btn-primary" href="/join/">Get your &pound;5 month</a></div>
+    </div></div>
+  </section>
+
+  <!-- STAT STRIP -->
+  <div class="statbar"><div class="wrap">
+    <div class="sb"><span class="n">&pound;5</span><span class="l">First month</span></div>
+    <div class="sb"><span class="n">24/7</span><span class="l">Open every day</span></div>
+    <div class="sb"><span class="n">650</span><span class="l">Free parking</span></div>
+    <div class="sb"><span class="n">22 Aug</span><span class="l">We open</span></div>
+  </div></div>
+
+  <!-- TWO-PANE FAQ -->
+  <section class="sec sec--cream">
+    <div class="wrap">
+      <span class="kicker">Frequently asked questions</span>
+      <h2 class="h2 display">Find your answer</h2>
+
+      <div class="faq2">
+        <!-- LEFT: subjects -->
+        <div>
+          <div class="subj-head">Choose your subject</div>
+          <div class="subjects" role="tablist" aria-label="FAQ subjects">
+            <button class="subj" role="tab" aria-selected="true" data-target="cat-joining">
+              <span class="txt"><span class="lead-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Joining &amp; pricing</span>
+              <span class="chev"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+            </button>
+            <button class="subj" role="tab" aria-selected="false" data-target="cat-membership">
+              <span class="txt"><span class="lead-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Membership</span>
+              <span class="chev"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+            </button>
+            <button class="subj" role="tab" aria-selected="false" data-target="cat-gym">
+              <span class="txt"><span class="lead-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>The gym &amp; facilities</span>
+              <span class="chev"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+            </button>
+            <button class="subj" role="tab" aria-selected="false" data-target="cat-classes">
+              <span class="txt"><span class="lead-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Classes</span>
+              <span class="chev"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+            </button>
+            <button class="subj" role="tab" aria-selected="false" data-target="cat-location">
+              <span class="txt"><span class="lead-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Parking &amp; location</span>
+              <span class="chev"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+            </button>
+            <button class="subj" role="tab" aria-selected="false" data-target="cat-opening">
+              <span class="txt"><span class="lead-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Opening &amp; pre-sale</span>
+              <span class="chev"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+            </button>
+            <button class="subj" role="tab" aria-selected="false" data-target="cat-openday">
+              <span class="txt"><span class="lead-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Open days</span>
+              <span class="chev"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+            </button>
+            <button class="subj" role="tab" aria-selected="false" data-target="cat-contact">
+              <span class="txt"><span class="lead-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Contact &amp; other</span>
+              <span class="chev"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT: answers -->
+        <div class="panel-wrap">
+
+          <!-- JOINING -->
+          <div class="panel is-active" id="cat-joining" role="tabpanel">
+            <div class="panel-title">Joining &amp; pricing</div>
+            <p class="panel-sub">One simple offer, no small print. Here is exactly how it works.</p>
+            <div class="group">
+              <div class="group-h">The founding offer</div>
+              <div class="qa" aria-expanded="true"><button class="qa-q">How much is it?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Your first month is &pound;5, then it is &pound;27.99 a month rolling. There is no joining fee.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">Is there a contract?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>No. It is rolling monthly and you can cancel anytime after your first month.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">How long is the &pound;5 offer around?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>It is a founding-member offer for the pre-opening period only. Prices go up once we open on 22 August, so it is worth locking in now.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">Is there a joining fee?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>No. The founding offer has no joining fee at all. You pay &pound;5 and you are in.</p></div></div>
+            </div>
+            <div class="group">
+              <div class="group-h">Paying &amp; signing up</div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">How do I join?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Hit any <a href="/join/">Get your &pound;5 month</a> button, enter your details, and you are taken straight to secure sign-up. It takes a couple of minutes.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">When will I be charged the &pound;27.99?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>After your first month. Your first month is the &pound;5, and the standard rate begins the month after.</p></div></div>
+            </div>
+          </div>
+
+          <!-- MEMBERSHIP -->
+          <div class="panel" id="cat-membership" role="tabpanel">
+            <div class="panel-title">Membership</div>
+            <p class="panel-sub">No lock-in, no games. Simple to join, simple to leave.</p>
+            <div class="group">
+              <div class="group-h">Managing your membership</div>
+              <div class="qa" aria-expanded="true"><button class="qa-q">Can I cancel?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Yes, anytime after your first month. No notice games, no lock-in.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">Will my &pound;5 rate change?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Your first month is &pound;5, then &pound;27.99 a month rolling. Joining now as a founding member secures your place ahead of opening, while the &pound;5 offer is still on.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">Do you offer off-peak or annual plans?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>For now we are keeping it to one simple founding offer so there is nothing to weigh up. More membership options will follow after we open.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">Can I use it if I already train at Long Eaton?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Riverside is a brand new site with its own founding membership. Grab the &pound;5 month here to lock in your place at the new gym.</p></div></div>
+            </div>
+          </div>
+
+          <!-- GYM -->
+          <div class="panel" id="cat-gym" role="tabpanel">
+            <div class="panel-title">The gym &amp; facilities</div>
+            <p class="panel-sub">10,000 sq ft, nine zones, everything you need and nothing you do not.</p>
+            <div class="group">
+              <div class="group-h">Inside the gym</div>
+              <div class="qa" aria-expanded="true"><button class="qa-q">What equipment is there?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>10,000 sq ft across nine zones: free weights, machines, cardio, functional space, strength, cables and more. Kit is well maintained and reset daily.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">What are the opening hours?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Open 24/7, so you can train whenever fits around work and life, early mornings or late nights included.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">Are there showers and changing rooms?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Yes, clean and modern changing rooms with showers.</p></div></div>
+            </div>
+            <div class="group">
+              <div class="group-h">Is it for me?</div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">Is it suitable for beginners?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Absolutely. No egos, no pressure, just a space to train your way. The team is on the floor to help you find your feet.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">Do you have personal trainers?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Yes. Our trainers are on the floor and happy to help point you in the right direction. Personal training options will be shared once we open.</p></div></div>
+            </div>
+          </div>
+
+          <!-- CLASSES -->
+          <div class="panel" id="cat-classes" role="tabpanel">
+            <div class="panel-title">Classes</div>
+            <p class="panel-sub">Group classes, included in your membership.</p>
+            <div class="group">
+              <div class="group-h">Group classes</div>
+              <div class="qa" aria-expanded="true"><button class="qa-q">Are classes included?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Yes. Group classes are included in your membership at no extra cost.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">What classes will you run?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>A rotating timetable of group classes led by proper instructors. The full schedule is announced closer to opening, so keep an eye on the site.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">Do classes cost extra?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>No. Classes are part of your membership, not a bolt-on.</p></div></div>
+            </div>
+          </div>
+
+          <!-- LOCATION -->
+          <div class="panel" id="cat-location" role="tabpanel">
+            <div class="panel-title">Parking &amp; location</div>
+            <p class="panel-sub">Riverside Retail Park, Nottingham. Easy to reach, easy to park.</p>
+            <div class="group">
+              <div class="group-h">Getting here</div>
+              <div class="qa" aria-expanded="true"><button class="qa-q">Where is it?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Riverside Retail Park, Nottingham, right next to B&amp;Q, Boots, JD Sports and Next.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">Is there parking?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Yes. 650 free parking spaces on site. No charge, no city-centre hassle, just park and train.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">How do I get there?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>The park sits just off the A52 and A453 and the Nottingham ring road, so it is a quick run from the city, Long Eaton, West Bridgford, Beeston and Clifton.</p></div></div>
+            </div>
+          </div>
+
+          <!-- OPENING -->
+          <div class="panel" id="cat-opening" role="tabpanel">
+            <div class="panel-title">Opening &amp; pre-sale</div>
+            <p class="panel-sub">We open 22 August 2026. Join now as a founding member.</p>
+            <div class="group">
+              <div class="group-h">Before we open</div>
+              <div class="qa" aria-expanded="true"><button class="qa-q">When do you open?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>22 August 2026. You can join now as a founding member ahead of opening and lock in the &pound;5 rate.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">Can I train before then?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Your founding membership secures the &pound;5 rate now. Training starts when the doors open on 22 August.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">Why join now rather than wait?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>The &pound;5 founding offer is only around before we open. Prices go up on opening day, so joining now is the cheapest way in.</p></div></div>
+            </div>
+            <div class="group">
+              <div class="group-h">About BasicGym</div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">Is this gym new?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Riverside is our second site. Our first gym, in Long Eaton, holds a 5.0 rating across 101 reviews, so you know what to expect.</p></div></div>
+            </div>
+          </div>
+
+          <!-- OPEN DAYS -->
+          <div class="panel" id="cat-openday" role="tabpanel">
+            <div class="panel-title">Open days</div>
+            <p class="panel-sub">Come see the gym before it opens. Free to attend, no pressure.</p>
+            <div class="group">
+              <div class="group-h">Visiting an open day</div>
+              <div class="qa" aria-expanded="true"><button class="qa-q">Do you run open days?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Yes. Free open days run before opening. Walk the floor, meet the team and have a proper look around. See the <a href="/open-day/">open days page</a> to book a slot.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">How do I book an open day?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Head to the <a href="/open-day/">open days page</a>, pick a slot and register. You will get a confirmation and a reminder before the day.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">Do I have to join on the day?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Not at all. Come and look around with no pressure. If you like what you see, you can lock in the &pound;5 founding month there and then.</p></div></div>
+            </div>
+          </div>
+
+          <!-- CONTACT -->
+          <div class="panel" id="cat-contact" role="tabpanel">
+            <div class="panel-title">Contact &amp; other</div>
+            <p class="panel-sub">Cannot find it here? A real person is on the other end.</p>
+            <div class="group">
+              <div class="group-h">Get in touch</div>
+              <div class="qa" aria-expanded="true"><button class="qa-q">How do I contact you?<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>Email <a href="mailto:info@basicgym.co.uk">info@basicgym.co.uk</a> and we will get back to you.</p></div></div>
+              <div class="qa" aria-expanded="false"><button class="qa-q">My question is not answered here.<span class="ico"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="qa-a"><p>No problem, drop us a line at <a href="mailto:info@basicgym.co.uk">info@basicgym.co.uk</a> with your question and we will help you out.</p></div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CAN'T FIND -->
+      <div class="cant">
+        <div>
+          <h3>Can't find your question?</h3>
+          <p>Get in touch and we will help. Or lock in your founding month now while the &pound;5 offer is on.</p>
+        </div>
+        <div class="actions">
+          <a class="contact-card" href="mailto:info@basicgym.co.uk">
+            <span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg></span>
+            <span><span class="t">Email us</span><span class="v">info@basicgym.co.uk</span></span>
+          </a>
+          <a class="btn btn-primary" href="/join/" style="width:100%">Get your &pound;5 month</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STICKY CTA (mobile) -->
+  <div class="sticky-cta">
+    <span class="p"><b>&pound;5</b> first month<small>No contract &middot; cancel anytime</small></span>
+    <a href="/join/">Get &pound;5 month</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  var scope = document.querySelector('.bg-faq');
+  if(!scope) return;
+
+  function setOpen(qa, open){
+    var ans = qa.querySelector('.qa-a');
+    qa.setAttribute('aria-expanded', open ? 'true' : 'false');
+    ans.style.maxHeight = open ? (ans.scrollHeight + 'px') : '0px';
+  }
+  // Recompute heights of every open item inside a panel (needed after it becomes visible)
+  function refresh(panel){
+    panel.querySelectorAll('.qa[aria-expanded="true"]').forEach(function(qa){
+      var ans = qa.querySelector('.qa-a');
+      ans.style.maxHeight = ans.scrollHeight + 'px';
+    });
+  }
+
+  // Category switching
+  var tabs = scope.querySelectorAll('.subj');
+  var panels = scope.querySelectorAll('.panel');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var target = tab.getAttribute('data-target');
+      tabs.forEach(function(t){ t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
+      panels.forEach(function(p){ p.classList.toggle('is-active', p.id === target); });
+      var active = scope.querySelector('#'+target);
+      if(active){
+        refresh(active); // open items in hidden panels had height 0, fix now they are visible
+        if(window.matchMedia('(max-width:900px)').matches){
+          active.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      }
+    });
+  });
+
+  // Accordion open/close
+  scope.querySelectorAll('.qa').forEach(function(qa){
+    qa.querySelector('.qa-q').addEventListener('click', function(){
+      setOpen(qa, qa.getAttribute('aria-expanded') !== 'true');
+    });
+  });
+
+  // Initialise: set heights for the visible panel's default-open items
+  var first = scope.querySelector('.panel.is-active');
+  if(first){ refresh(first); }
+
+  window.addEventListener('resize', function(){
+    var vis = scope.querySelector('.panel.is-active');
+    if(vis){ refresh(vis); }
+  });
+})();
+</script>
